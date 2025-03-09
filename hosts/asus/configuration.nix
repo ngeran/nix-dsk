@@ -85,7 +85,7 @@
   users.users.nikos = {
     isNormalUser = true;
     description = "nikos";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [];
   };
 
