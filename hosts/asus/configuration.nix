@@ -36,6 +36,19 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.kernelModules = [ "amdgpu" ];
 
+  # Mount Internal Hard Drives
+  fileSystems."/mnt/DATA-2T" = {
+    device = "UUID=1b079941-401f-430f-97e7-8eacd6b25e82";
+    fsType = "ext4";
+    options = [ "defaults" ];
+  };
+
+  fileSystems."/mnt/SSD-250" = {
+    device = "UUID=C8057DD5A2F97C72";
+    fsType = "ntfs";
+    options = [ "defaults" "uid=1000" "gid=100" ];
+  };
+
   networking.hostName = "ngeran"; # Define your hostname.
 
   # AMD Graphcs
