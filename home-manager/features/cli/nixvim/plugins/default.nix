@@ -23,7 +23,7 @@
     ./which-key.nix     # Keybinding hints plugin
     ./snacks.nix        # Snippet plugin (consider combining with luasnip)
     ./theme-gruvbox.nix # gruvbox theme
-    ./copilot.nix       # Copilot
+    #./copilot.nix       # Copilot
   ]; # Imports configuration files for various plugins
 
   programs.nixvim = {
