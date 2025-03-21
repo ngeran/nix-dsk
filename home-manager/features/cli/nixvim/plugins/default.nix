@@ -24,7 +24,8 @@
     ./snacks.nix        # Snippet plugin (consider combining with luasnip)
     ./theme-gruvbox.nix # gruvbox theme
     ./indent-blankline.nix #Indent Blankline
-    ./yazi              # Yazi
+    ./toggle-term.nix
+    #./yazi              # Yazi
     #./copilot.nix       # Copilot
   ]; # Imports configuration files for various plugins
 
