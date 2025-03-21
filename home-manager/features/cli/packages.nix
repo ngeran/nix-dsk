@@ -33,6 +33,5 @@
     imagemagick
     #browser
     tor-browser
-    yazi
   ];
 }

@@ -2,6 +2,7 @@
 
 {
   programs.nixvim = {
+    enable = true;
     plugins.yazi = {
       enable = true;
 
