@@ -29,7 +29,7 @@
         };
       };
 
-      # Configure copilot-vim plugin
+      # Configure copilot-vim plugin, disable copilot-lua
       copilot-vim = {
         enable = true;
         package = pkgs.vimPlugins.copilot-vim.overrideAttrs (oldAttrs: {
@@ -47,6 +47,11 @@
             copilot_accept = "<leader>ac";  # Customize mapping for Copilot accept
           };
         };
+      };
+
+      # Disable copilot-lua if you are using copilot-vim
+      copilot-lua = {
+        enable = false;  # Disable copilot-lua here
       };
     };
 
