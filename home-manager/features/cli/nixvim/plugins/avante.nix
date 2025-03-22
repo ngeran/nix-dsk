@@ -28,33 +28,18 @@
         };
       };
 
-      # Configure copilot-vim plugin, disable copilot-lua
-      copilot-vim = {
-        enable = true;
-        package = pkgs.vimPlugins.copilot-vim.overrideAttrs (oldAttrs: {
-          patches = [
-            # Optionally, patch Copilot plugin
-            (pkgs.fetchpatch {
-              url = "https://github.com/github/copilot.vim/commit/somecommit.patch";
-              hash = "sha256-somehashhere=";
-            })
-          ];
-        });
-
-        settings = {
-          mappings = {
-            copilot_accept = "<leader>ac";  # Customize mapping for Copilot accept
-          };
-        };
+      # Configure copilot-lua plugin, disable copilot-vim
+      copilot-lua = {
+        enable = true;  # Enable copilot-lua here
       };
 
-      # Explicitly disable copilot-lua in the plugins section
-      copilot-lua = {
-        enable = false;  # Ensure copilot-lua is disabled when using copilot-vim
+      # Disable copilot-vim if you are using copilot-lua
+      copilot-vim = {
+        enable = false;  # Disable copilot-vim here
       };
     };
 
-    # Directly add keymaps for both plugins without which-key
+    # Add keymaps for both plugins without which-key
     keymaps = lib.optionals config.plugins.avante.enable [
       {
         mode = "n";
@@ -62,12 +47,12 @@
         action = "<CMD>AvanteClear<CR>";
         options.desc = "avante: clear";
       }
-    ] ++ lib.optionals config.plugins.copilot-vim.enable [
+    ] ++ lib.optionals config.plugins.copilot-lua.enable [
       {
         mode = "n";
         key = "<leader>ac";
         action = "<CMD>CopilotAccept<CR>";  # Copilot accept action
-        options.desc = "copilot-vim: accept suggestion";
+        options.desc = "copilot-lua: accept suggestion";
       }
     ];
   };
