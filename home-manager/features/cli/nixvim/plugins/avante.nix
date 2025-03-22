@@ -5,7 +5,7 @@
   ...
 }:
 {
-  # Ensure config.plugins is part of the configuration
+  # Ensure that plugins are configured correctly within the nixvim section
   programs.nixvim = {
     plugins = {
       # Configure avante plugin
@@ -50,22 +50,7 @@
       };
     };
 
-    # which-key settings for both plugins
-    which-key.settings.spec = lib.optionals config.plugins.avante.enable [
-      {
-        __unkeyed-1 = "<leader>a";
-        group = "Avante";
-        icon = "";
-      }
-    ] ++ lib.optionals config.plugins.copilot-vim.enable [
-      {
-        __unkeyed-1 = "<leader>ac";
-        group = "Copilot";
-        icon = "";  # You can replace the icon for Copilot
-      }
-    ];
-
-    # Keymaps for both plugins
+    # Directly add keymaps for both plugins without which-key
     keymaps = lib.optionals config.plugins.avante.enable [
       {
         mode = "n";
