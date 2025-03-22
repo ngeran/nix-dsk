@@ -34,7 +34,6 @@
     #browser
     tor-browser
     #AI
-    copilot-vim
-    copilot-chat
+    vimPlugins.copilot-vim
   ];
 }
