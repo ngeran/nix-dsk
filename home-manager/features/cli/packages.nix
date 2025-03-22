@@ -33,5 +33,8 @@
     imagemagick
     #browser
     tor-browser
+    #AI
+    copilot-vim
+    copilot-chat
   ];
 }
