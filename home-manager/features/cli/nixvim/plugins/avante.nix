@@ -5,7 +5,6 @@
   ...
 }:
 {
-  # Ensure that plugins are configured correctly within the nixvim section
   programs.nixvim = {
     plugins = {
       # Configure avante plugin
@@ -49,9 +48,9 @@
         };
       };
 
-      # Disable copilot-lua if you are using copilot-vim
+      # Explicitly disable copilot-lua in the plugins section
       copilot-lua = {
-        enable = false;  # Disable copilot-lua here
+        enable = false;  # Ensure copilot-lua is disabled when using copilot-vim
       };
     };
 
