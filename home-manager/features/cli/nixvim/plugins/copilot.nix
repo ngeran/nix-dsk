@@ -1,7 +1,8 @@
 {
-  programs.nixvims = {
-    plugin.copilot-vim = {
+  programs.nixvim = {
+    plugins.copilot-vim = {
       enable = true;
+     
     };
   };
 }
