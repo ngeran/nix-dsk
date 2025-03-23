@@ -24,9 +24,9 @@
     ./snacks.nix        # Snippet plugin (consider combining with luasnip)
     ./theme-gruvbox.nix # gruvbox theme
     ./indent-blankline.nix #Indent Blankline
-    ./toggle-term.nix
+    #./toggle-term.nix
     #./avante.nix
-    ./yazi              # Yazi
+    #./yazi              # Yazi
     #./copilot.nix       # Copilot
     ./dap.nix
     #./markview.nix
