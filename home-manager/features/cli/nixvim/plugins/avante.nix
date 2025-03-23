@@ -7,7 +7,7 @@
     plugins.avante = {
       enable = true;
       settings = {
-        provider = openai;
+        provider = "openai";
         openai = {
           enabled = true; # Or whatever the option to enable OpenAI is
           api_key = pkgs.lib.getEnv "OPENAI_API_KEY";  # Read API Key from environment variable!
