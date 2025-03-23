@@ -102,22 +102,5 @@
       }
     ];
 
-    # Example Lua configuration (dap_utils.lua - Create this file!)
-    luaConfig = ''
-      local dap = require('dap')
-      local dapui = require('dapui')
-
-      local M = {}
-
-      M.toggle_dap = function()
-        if dap.is_running() then
-          dapui.open()
-        else
-          dap.toggle_breakpoint()
-        end
-      end
-
-      return M
-    '';
   };
 }
