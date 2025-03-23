@@ -27,7 +27,7 @@
     ./toggle-term.nix
     ./avante.nix
     #./yazi              # Yazi
-    #./copilot.nix       # Copilot
+    ./copilot.nix       # Copilot
   ]; # Imports configuration files for various plugins
 
   programs.nixvim = {
