@@ -50,8 +50,6 @@
       };
 
       nvim-autopairs.enable = true; # Automatically adds and removes pairs of characters (e.g., parentheses, quotes)
-      # Enable nvim-dap plugin
-      'mfussenegger/nvim-dap' = {};
 
       colorizer = {
         enable = true;
