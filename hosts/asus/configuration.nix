@@ -113,6 +113,9 @@
      #wget
      #git
   ];
+   environment.sessionVariables = {
+    OPENAI_API_KEY = "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";  # Replace with your actual key!
+  };
  # This overlay is required by LogSeq
   nixpkgs.config.permittedInsecurePackages = [
                 "electron-27.3.11"
