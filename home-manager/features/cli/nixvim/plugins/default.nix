@@ -28,6 +28,7 @@
     ./avante.nix
     #./yazi              # Yazi
     ./copilot.nix       # Copilot
+    ./markview.nix
   ]; # Imports configuration files for various plugins
 
   programs.nixvim = {
