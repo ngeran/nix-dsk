@@ -1,22 +1,24 @@
+{ pkgs, ... }:
+
 {
   programs.nixvim = {
+    enable = true;
+
     plugins = {
       dap = {
         enable = true;
-        extensions = {
-          dap-ui = {
-            enable = true;
-          };
-          dap-virtual-text = {
-            enable = true;
-          };
-          dap-python = {
-            enable = true;
-          };
-          dap-go = {
-            enable = true;
-          };
-        };
+      };
+      dap-ui = {
+        enable = true;
+      };
+      dap-virtual-text = {
+        enable = true;
+      };
+      dap-python = {
+        enable = true;
+      };
+      dap-go = {
+        enable = true;
       };
     };
 
@@ -24,7 +26,7 @@
       {
         mode = "n";
         key = "<leader>d";
-        action = "<cmd>lua require('dap_utils').toggle_dap()<CR>"; # Requires a separate dap_utils.lua file
+        action = "<cmd>lua require('dap_utils').toggle_dap()<CR>";
         options = {
           silent = true;
           desc = "Toggle DAP/Breakpoint";
@@ -101,6 +103,5 @@
         };
       }
     ];
-
   };
 }
