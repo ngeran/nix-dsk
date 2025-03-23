@@ -1,28 +1,12 @@
 {
   programs.nixvim = {
-    plugins = {
-      copilot-cmp = {
-        enable = true;
-      };
-      copilot-lua = {
-        enable = true;
-        settings = {
-          copilot = {
-            suggestion = {
-              enabled = false;
-            };
-            panel = {
-              enabled = false;
-            };
-          };
+    plugins.copilot-lua = {
+      enable = true;
+      settings = {
+        copilot = {
+          node_command = "/home/nikos/.nix-profile/bin/node";
         };
       };
     };
-    extraConfigLua = ''
-      require("copilot").setup({
-        suggestion = { enabled = false },
-        panel = { enabled = false },
-      })
-    '';
   };
 }
