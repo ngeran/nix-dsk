@@ -20,10 +20,6 @@
       ../common/optional/qemu.nix
       ../common/optional/docker.nix
       ../common/optional/wireshark.nix
-
-      #Copilot and dendencies
-      inputs.nvix.nvixModules.utils
-      inputs.nvix.nvixModules.copilot
     ];
   # Automatic updating
   system.autoUpgrade.enable = true;
