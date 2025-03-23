@@ -1,8 +1,11 @@
 {
   programs.nixvim = {
     plugins.dap = {
-      enable = true;
-      dap-python.enable = true;  
+      enable = true; 
     };
+    plugins.dap-python = {
+      enable = true; 
+    };
+
   };
 }
