@@ -1,6 +1,6 @@
 {
   programs.nixvim = {
-    plugins.copilot-lua = {
+    plugins.codeium-vim = {
       enable = true;
     };
   };
