@@ -1,37 +1,37 @@
-{ config, lib, ... }:
-
+{ config, ... }:
 {
-  programs.nixvim = {
+  programs.yazi = {
     enable = true;
-    plugins.yazi = {
-      enable = true;
 
-      lazyLoad = {
-        settings = {
-          cmd = [
-            "Yazi"
+    shellWrapperName = "r";
+
+    keymap = {
+      manager.prepend_keymap = [
+        {
+          on = [ "<C-f>" ];
+          run = "find";
+        }
+        {
+          on = [ "A" ];
+          run = "create --dir";
+        }
+        {
+          on = [
+            "g"
+            "d"
           ];
-        };
-      };
+          run = "cd ${config.xdg.userDirs.download}";
+          desc = "Go to the downloads directory";
+        }
+        {
+          on = [
+            "g"
+            "t"
+          ];
+          run = "cd ~/temp";
+          desc = "Go to the temp directory";
+        }
+      ];
     };
-
-    keymaps = lib.optionals config.programs.nixvim.plugins.yazi.enable [
-      {
-        mode = "n";
-        key = "<leader>e";
-        action = "<CMD>Yazi<CR>";
-        options = {
-          desc = "Yazi (current file)";
-        };
-      }
-      {
-        mode = "n";
-        key = "<leader>E";
-        action = "<CMD>Yazi toggle<CR>";
-        options = {
-          desc = "Yazi (resume)";
-        };
-      }
-    ];
   };
 }
