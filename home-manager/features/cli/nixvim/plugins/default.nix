@@ -26,7 +26,7 @@
     ./indent-blankline.nix #Indent Blankline
     ./toggle-term.nix
     #./avante.nix
-    #./yazi              # Yazi
+    ./yazi              # Yazi
     #./copilot.nix       # Copilot
     ./dap.nix
     #./markview.nix
