@@ -27,7 +27,7 @@
     #./toggle-term.nix
     #./avante.nix
     #./yazi              # Yazi
-    #./copilot.nix       # Copilot
+    ./copilot.nix       # Copilot
     #./dap.nix
     #./markview.nix
   ]; # Imports configuration files for various plugins
