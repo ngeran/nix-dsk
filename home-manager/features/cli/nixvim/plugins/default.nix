@@ -25,10 +25,10 @@
     ./theme-gruvbox.nix # gruvbox theme
     ./indent-blankline.nix #Indent Blankline
     #./toggle-term.nix
-    #./avante.nix
+    ./avante.nix
     #./yazi              # Yazi
-    ./copilot.nix       # Copilot
-    #./dap.nix
+    #./copilot.nix       # Copilot
+    ./dap.nix
     #./markview.nix
   ]; # Imports configuration files for various plugins
 
