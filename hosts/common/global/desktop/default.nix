@@ -6,28 +6,29 @@
     unzip
     firefox
     rofi-wayland
-    wofi                                                                                                                                                                                                                                                                                                                                 
-    openssh                                                                                                                                                                           
-    neofetch                                                                                                                                                                          
-    btop 
-    xfce.xfconf                                                                                                                                                                          
-    xfce.thunar                                                                                                                                                                       
-    xfce.thunar-volman 
-    wl-clipboard 
+    wofi
+    openssh
+    neofetch
+    btop
+    xfce.xfconf
+    xfce.thunar
+    xfce.thunar-volman
+    wl-clipboard
     grim
     slurp
-    swappy                                                                                                                                                    
-    ags                                                                                                                                                                               
-    wireguard-tools 
+    swappy
+    ags
+    wireguard-tools
     pulseaudio
-    pavucontrol                                                                                                                                                                             
-    powertop 
+    pavucontrol
+    powertop
     udiskie
-    gvfs 
+    gvfs
     ntfs3g
     basedpyright
     bluez
     bluez-tools
+    starship
 
-  ];                            
+  ];
 }
