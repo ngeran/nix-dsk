@@ -1,5 +1,7 @@
-{ config, pkgs, ... }: {
-  # Define the gruvbox colors as NixOS variables
+{ config, pkgs, ... }:
+
+let
+  # Define the gruvbox colors locally in the 'let' block
   gruvboxColors = {
     gruvbox_bg0_h     = "#1d2021";
     gruvbox_bg0       = "#282828";
@@ -26,6 +28,8 @@
     gruvbox_bright_orange = "#fe8019";
   };
 
+in
+{
   programs.starship = {
     enable = true;
     enableBashIntegration = true;
@@ -41,7 +45,7 @@
       # OS module configuration
       os = {
         format = "[ $symbol ]($style)";
-        style = "${config.gruvboxColors.gruvbox_blue} bold";
+        style = "${gruvboxColors.gruvbox_blue} bold";
         disabled = false;
         symbols.Linux = "󰻀";
         symbols.Ubuntu = "󰕈";
@@ -54,7 +58,7 @@
       # Hostname module configuration
       hostname = {
         format = "[$hostname]($style) ";
-        style = "${config.gruvboxColors.gruvbox_bright_orange} bold";
+        style = "${gruvboxColors.gruvbox_bright_orange} bold";
         trim_at = ".";
         ssh_only = false;
         disabled = false;
@@ -63,24 +67,24 @@
       # Directory module configuration
       directory = {
         format = "[ 󰉖 $path ]($style)";
-        style = "${config.gruvboxColors.gruvbox_bright_blue} bold";
+        style = "${gruvboxColors.gruvbox_bright_blue} bold";
         truncation_length = 4;
         truncate_to_repo = true;
         read_only = " 󰌾";
-        read_only_style = "${config.gruvboxColors.gruvbox_bright_red}";
+        read_only_style = "${gruvboxColors.gruvbox_bright_red}";
       };
 
       # Git Branch module configuration
       git_branch = {
         symbol = "󰘬";
         format = "[ $symbol $branch ]($style)";
-        style = "${config.gruvboxColors.gruvbox_bright_purple} bold";
+        style = "${gruvboxColors.gruvbox_bright_purple} bold";
       };
 
       # Git Status module configuration
       git_status = {
         format = "([$all_status$ahead_behind]($style) )";
-        style = "${config.gruvboxColors.gruvbox_bright_yellow} bold";
+        style = "${gruvboxColors.gruvbox_bright_yellow} bold";
         conflicted = "󰞇";
         ahead = "󰁝 $count";
         behind = "󰁅 $count";
@@ -97,7 +101,7 @@
       package = {
         symbol = "󰏗";
         format = "[ $symbol $version ]($style)";
-        style = "${config.gruvboxColors.gruvbox_bright_orange} bold";
+        style = "${gruvboxColors.gruvbox_bright_orange} bold";
         disabled = false;
       };
 
@@ -105,14 +109,14 @@
       golang = {
         symbol = "󰟠";
         format = "[ $symbol ($version) ]($style)";
-        style = "${config.gruvboxColors.gruvbox_bright_aqua} bold";
+        style = "${gruvboxColors.gruvbox_bright_aqua} bold";
       };
 
       # Python module configuration
       python = {
         symbol = "";
         format = "[ $symbol ($version )]($style)";
-        style = "${config.gruvboxColors.gruvbox_yellow} bold";
+        style = "${gruvboxColors.gruvbox_yellow} bold";
         pyenv_version_name = true;
       };
 
@@ -120,7 +124,7 @@
       nodejs = {
         symbol = "";
         format = "[ $symbol ($version) ]($style)";
-        style = "${config.gruvboxColors.gruvbox_bright_green} bold";
+        style = "${gruvboxColors.gruvbox_bright_green} bold";
         disabled = false;
       };
 
@@ -128,21 +132,21 @@
       rust = {
         symbol = "";
         format = "[ $symbol ($version) ]($style)";
-        style = "${config.gruvboxColors.gruvbox_bright_orange} bold";
+        style = "${gruvboxColors.gruvbox_bright_orange} bold";
       };
 
       # Java module configuration
       java = {
         symbol = "";
         format = "[ $symbol ($version) ]($style)";
-        style = "${config.gruvboxColors.gruvbox_bright_red} bold";
+        style = "${gruvboxColors.gruvbox_bright_red} bold";
       };
 
       # Docker Context module configuration
       docker_context = {
         symbol = "󰡨";
         format = "[ $symbol $context ]($style)";
-        style = "${config.gruvboxColors.gruvbox_bright_blue} bold";
+        style = "${gruvboxColors.gruvbox_bright_blue} bold";
         only_with_files = false;
         disabled = false;
       };
@@ -154,14 +158,14 @@
         threshold = 75;
         symbol = "󰍛";
         format = "[$symbol($ram_pct)]($style)";
-        style = "${config.gruvboxColors.gruvbox_bright_aqua}";
+        style = "${gruvboxColors.gruvbox_bright_aqua}";
       };
 
       # Command duration module configuration
       cmd_duration = {
         min_time = 1000;
         format = "[ 󱑁 $duration ]($style)";
-        style = "${config.gruvboxColors.gruvbox_gray} italic";
+        style = "${gruvboxColors.gruvbox_gray} italic";
         disabled = false;
       };
 
@@ -170,14 +174,14 @@
         disabled = false;
         format = "[ 󱑆 $time ]($style)";
         time_format = "%T";
-        style = "${config.gruvboxColors.gruvbox_bright_green}";
+        style = "${gruvboxColors.gruvbox_bright_green}";
         utc_time_offset = "local";
       };
 
       # Status module configuration
       status = {
         symbol = "";
-        style = "${config.gruvboxColors.gruvbox_bright_red}";
+        style = "${gruvboxColors.gruvbox_bright_red}";
         success_symbol = "";
         format = "[$symbol]($style)";
         disabled = false;
@@ -185,12 +189,12 @@
 
       # Character module configuration
       character = {
-        success_symbol = "[❯](${config.gruvboxColors.gruvbox_bright_green})";
-        error_symbol = "[❯](${config.gruvboxColors.gruvbox_bright_red})";
-        vimcmd_symbol = "[❮](${config.gruvboxColors.gruvbox_bright_green})";
-        vimcmd_replace_one_symbol = "[❮](${config.gruvboxColors.gruvbox_bright_purple})";
-        vimcmd_replace_symbol = "[❮](${config.gruvboxColors.gruvbox_bright_purple})";
-        vimcmd_visual_symbol = "[❮](${config.gruvboxColors.gruvbox_bright_yellow})";
+        success_symbol = "[❯](${gruvboxColors.gruvbox_bright_green})";
+        error_symbol = "[❯](${gruvboxColors.gruvbox_bright_red})";
+        vimcmd_symbol = "[❮](${gruvboxColors.gruvbox_bright_green})";
+        vimcmd_replace_one_symbol = "[❮](${gruvboxColors.gruvbox_bright_purple})";
+        vimcmd_replace_symbol = "[❮](${gruvboxColors.gruvbox_bright_purple})";
+        vimcmd_visual_symbol = "[❮](${gruvboxColors.gruvbox_bright_yellow})";
       };
     };
   };
