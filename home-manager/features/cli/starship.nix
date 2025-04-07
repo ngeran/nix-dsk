@@ -1,4 +1,31 @@
 {
+  # Define the gruvbox colors as NixOS variables
+  gruvboxColors = {
+    gruvbox_bg0_h     = "#1d2021";
+    gruvbox_bg0       = "#282828";
+    gruvbox_bg1       = "#3c3836";
+    gruvbox_bg2       = "#504945";
+    gruvbox_bg3       = "#665c54";
+    gruvbox_bg4       = "#7c6f64";
+    gruvbox_fg        = "#ebdbb2";
+    gruvbox_fg0       = "#fbf1c7";
+    gruvbox_gray      = "#a89984";
+    gruvbox_red       = "#cc241d";
+    gruvbox_green     = "#98971a";
+    gruvbox_yellow    = "#d79921";
+    gruvbox_blue      = "#458588";
+    gruvbox_purple    = "#b16286";
+    gruvbox_aqua      = "#689d6a";
+    gruvbox_orange    = "#d65d0e";
+    gruvbox_bright_red    = "#fb4934";
+    gruvbox_bright_green  = "#b8bb26";
+    gruvbox_bright_yellow = "#fabd2f";
+    gruvbox_bright_blue   = "#83a598";
+    gruvbox_bright_purple = "#d3869b";
+    gruvbox_bright_aqua   = "#8ec07c";
+    gruvbox_bright_orange = "#fe8019";
+  };
+
   programs.starship = {
     enable = true;
     enableBashIntegration = true;
@@ -9,7 +36,7 @@
       add_newline = true;
 
       # Define the prompt format
-      format = "$os$hostname$directory$git_branch$git_status$package$golang$python$nodejs$rust$java$docker_context$memory_usage$cmd_duration$time$line_break$status$character";
+      format = "$os$hostname$directory$git_branch$git_status$package$golang$python$nodejs$rust$java$docker_context$memory_usage$cmd_duration\n$time$line_break$status$character";
 
       # OS module configuration
       os = {
