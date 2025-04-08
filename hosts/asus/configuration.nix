@@ -114,7 +114,6 @@
      #git
   ];
    environment.sessionVariables = {
-    #OPENAI_API_KEY = "";  # Replace with your actual key!
   };
  # This overlay is required by LogSeq
   nixpkgs.config.permittedInsecurePackages = [
