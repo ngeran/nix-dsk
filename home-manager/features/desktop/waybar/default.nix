@@ -29,7 +29,7 @@
           };
 
           persistent-workspaces = {
-            "*" = 10;
+            "*" = 8;
           };
         };
 
