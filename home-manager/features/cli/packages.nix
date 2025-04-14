@@ -27,6 +27,7 @@
     # Other
     bat
     tailwindcss
+    hugo
     #Automation
     opentofu
     #Image
