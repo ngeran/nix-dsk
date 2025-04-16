@@ -20,7 +20,7 @@
       # Add other top-level settings from yazi.toml here
     };
 
-    theme = {
+   theme = {
       manager = {
         cwd = { fg = "#83a598"; };
         hovered = { fg = "#282828"; bg = "#83a598"; };
@@ -35,7 +35,7 @@
         tab_width = 1;
         border_symbol = "│";
         border_style = { fg = "#665c54"; };
-        # syntect_theme = "~/.config/yazi/Gruvbox-Dark.tmTheme"; # Consider how to manage custom themes in Nix
+        # syntect_theme = "~/.config/yazi/Gruvbox-Dark.tmTheme";
       };
 
       status = {
@@ -99,18 +99,18 @@
 
       filetype = {
         rules = [
-          { mime = "image/*"; fg = "#83a598"; };
-          { mime = "video/*"; fg = "#b8bb26"; };
-          { mime = "audio/*"; fg = "#b8bb26"; };
-          { mime = "application/zip"; fg = "#fe8019"; };
-          { mime = "application/gzip"; fg = "#fe8019"; };
-          { mime = "application/x-tar"; fg = "#fe8019"; };
-          { mime = "application/x-bzip"; fg = "#fe8019"; };
-          { mime = "application/x-bzip2"; fg = "#fe8019"; };
-          { mime = "application/x-7z-compressed"; fg = "#fe8019"; };
-          { mime = "application/x-rar"; fg = "#fe8019"; };
-          { name = "*"; fg = "#a89984"; };
-          { name = "*/"; fg = "#83a598"; };
+          { mime = "image/*"; fg = "#83a598" }
+          { mime = "video/*"; fg = "#b8bb26" }
+          { mime = "audio/*"; fg = "#b8bb26" }
+          { mime = "application/zip"; fg = "#fe8019" }
+          { mime = "application/gzip"; fg = "#fe8019" }
+          { mime = "application/x-tar"; fg = "#fe8019" }
+          { mime = "application/x-bzip"; fg = "#fe8019" }
+          { mime = "application/x-bzip2"; fg = "#fe8019" }
+          { mime = "application/x-7z-compressed"; fg = "#fe8019" }
+          { mime = "application/x-rar"; fg = "#fe8019" }
+          { name = "*"; fg = "#a89984" }
+          { name = "*/"; fg = "#83a598" }
         ];
       };
     };
