@@ -11,6 +11,6 @@
   };
 
   home.file.".config/yazi/theme.toml" = {
-    source = .config/yazi/gruvbox-dark.toml;
+    source = .config/yazi/config/gruvbox-dark.toml;
   };
 }
