@@ -10,5 +10,6 @@
      ./stylix.nix
      ./tmux.nix
      ./nixvim
+     ./yazi.nix
   ];
 }
