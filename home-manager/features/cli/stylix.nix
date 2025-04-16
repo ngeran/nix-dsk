@@ -21,7 +21,7 @@
     polarity = "dark"; # Sets the overall theme polarity to dark
 
     base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
-    
+
 
     opacity = { # Configures opacity for different elements
       applications = 1.0; # Opacity for general applications
@@ -31,6 +31,7 @@
     };
 
     targets = { # Enables Stylix for specific applications
+      yazi.enable = true; # Enable Stylix for yazi
       firefox.enable = true; # Enables Stylix for Firefox
       alacritty.enable = true; # Enables Stylix for Alacritty
       neovim.enable = false; # Disables Stylix for Neovim (important!)
