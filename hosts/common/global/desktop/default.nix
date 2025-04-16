@@ -29,6 +29,7 @@
     bluez
     bluez-tools
     starship
+    yazi
 
   ];
 }
