@@ -67,7 +67,7 @@
       };
 
       sizes = { # Font sizes for different elements
-        terminal = 13;   # Font size for the terminal
+        terminal = 11;   # Font size for the terminal
         applications = 11; # Font size for general applications
       };
     };
