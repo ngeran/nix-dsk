@@ -69,8 +69,6 @@
       sizes = { # Font sizes for different elements
         terminal = 12;   # Font size for the terminal
         applications = 12; # Font size for general applications
-        desktop = 10;
-        popups = 10;
       };
     };
 
