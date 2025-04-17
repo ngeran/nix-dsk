@@ -55,7 +55,7 @@
     };
     monospace = {
       name = "MesloLGS NF"; # Monospace font name for Alacritty
-      package = pkgs.nerdfonts.meslo-lgs-nf; # Nerd Font MesloLGS
+      package = pkgs.meslo-lgs-nf; # Nerd Font MesloLGS
     };
     sansSerif = {
       name = "Noto Sans";
