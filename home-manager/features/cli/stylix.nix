@@ -55,7 +55,7 @@
       };
       monospace = {
         name = "MesloLGS NF"; # Monospace font name
-        package = pkgs.nerd-fonts.meslo-lg; # Package providing the monospace font
+        package = pkgs.nerdfonts.meslo-lgs-nf; # Package providing the monospace font
       };
       sansSerif = {
         name = "Noto Sans"; # Sans-serif font name
