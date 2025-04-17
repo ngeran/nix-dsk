@@ -39,17 +39,17 @@
       };
 
       status = {
-        separator_open = "";
-        separator_close = "";
-        separator_style = { fg = "#3c3836"; bg = "#3c3836"; };
-        progress_label = { fg = "#ebdbb2"; bold = true; };
-        progress_normal = { fg = "#504945"; bg = "#3c3836"; };
-        progress_error = { fg = "#fb4934"; bg = "#3c3836"; };
-        permissions_t = { fg = "#504945"; };
-        permissions_r = { fg = "#b8bb26"; };
-        permissions_w = { fg = "#fb4934"; };
-        permissions_x = { fg = "#b8bb26"; };
-        permissions_s = { fg = "#665c54"; };
+        separator_open = ""; # Using a common powerline separator
+        separator_close = "";
+        separator_style = { fg = "#3c3836"; bg = "#3c3836"; }; # Dark background
+        progress_label = { fg = "#ebdbb2"; bold = true; }; # Bright yellow
+        progress_normal = { fg = "#504945"; bg = "#3c3836"; }; # Darker grey on dark background
+        progress_error = { fg = "#fb4934"; bg = "#3c3836"; };  # Red on dark background
+        permissions_t = { fg = "#ebdbb2"; }; # Bright yellow for file type
+        permissions_r = { fg = "#a9b665"; }; # Green for read
+        permissions_w = { fg = "#fabd2f"; }; # Yellow/Orange for write
+        permissions_x = { fg = "#8ec07c"; }; # Light green for execute
+        permissions_s = { fg = "#d3869b"; }; # Pink/Purple for setuid/etc.
       };
 
       mode = {
