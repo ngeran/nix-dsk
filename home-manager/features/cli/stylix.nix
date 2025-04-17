@@ -67,9 +67,10 @@
       };
 
       sizes = { # Font sizes for different elements
-        terminal = 14;   # Font size for the terminal
-        applications = 12; # Font size for general applications
-      };
+        applications = 12; # General application font size (in points)
+        desktop = 10;      # Font size for window titles, menus, etc.
+        terminal = 12;     # Font size for terminal emulators
+        popups = 10;       # Font size for notifications and popups      };
     };
 
     iconTheme = { # Configures the icon theme
