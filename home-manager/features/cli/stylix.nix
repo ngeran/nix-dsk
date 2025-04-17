@@ -54,7 +54,7 @@
         package = pkgs.noto-fonts-color-emoji; # Package providing the emoji font
       };
       monospace = {
-        name = "JetBrains Mono"; # Monospace font name
+        name = "MesloLGS NF"; # Monospace font name
         package = pkgs.jetbrains-mono; # Package providing the monospace font
       };
       sansSerif = {
@@ -67,10 +67,11 @@
       };
 
       sizes = { # Font sizes for different elements
-        applications = 12; # General application font size (in points)
+        terminal = 12;   # Font size for the terminal
+        applications = 12; # Font size for general applications
         desktop = 10;      # Font size for window titles, menus, etc.
-        terminal = 12;     # Font size for terminal emulators
-        popups = 10;       # Font size for notifications and popups      };
+        popups = 10;       # Font size for notifications and popups
+      };
     };
 
     iconTheme = { # Configures the icon theme
