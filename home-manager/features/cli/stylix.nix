@@ -10,7 +10,7 @@
     powerline-fonts      # Powerline fonts
     powerline-symbols    # Powerline symbols
     nerd-fonts.symbols-only # Nerd Fonts symbols only
-    nerd-fonts.meslo-lgs-nf  # Meslo LG Nerd Font
+    meslo-lgs-nf  # Meslo LG Nerd Font
     nerd-fonts.hack      # Hack Nerd Font
     nerd-fonts.fira-mono # Fira Mono Nerd Font
   ];
