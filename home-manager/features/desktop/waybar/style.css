@@ -1,7 +1,7 @@
 * {
   border: none;
   border-radius: 0px;
-  font-family: "JetBrains Mono";
+  font-family: "MesloLGS NF";
   font-weight: bold;
   font-size: 18px;
   min-height: 0;
@@ -76,4 +76,3 @@ window#waybar {
   color: #d65d0e;
   border-bottom: 5px solid #d65d0e;
 }
-
