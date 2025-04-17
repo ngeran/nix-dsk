@@ -50,28 +50,27 @@
 
     fonts = { # Configures fonts
       emoji = {
-        name = "Noto Color Emoji"; # Emoji font name
-        package = pkgs.noto-fonts-color-emoji; # Package providing the emoji font
-      };
-      monospace = {
-        name = "MesloLGS NF"; # Monospace font name
-        package = pkgs.meslo-lgs-nf; # Nerd Font MesloLGS
-      };
-      sansSerif = {
-        name = "Noto Sans"; # Sans-serif font name
-        package = pkgs.noto-fonts; # Package providing the sans-serif font
-      };
-      serif = {
-        name = "Noto Serif"; # Serif font name
-        package = pkgs.noto-fonts; # Package providing the serif font
-      };
-
-      sizes = { # Font sizes for different elements
-        terminal = 12;   # Font size for the terminal
-        applications = 12; # Font size for general applications
-      };
+      name = "Noto Color Emoji";
+      package = pkgs.noto-fonts-color-emoji;
+    };
+    monospace = {
+      name = "MesloLGS NF"; # Monospace font name for Alacritty
+      package = pkgs.nerdfonts.meslo-lgs-nf; # Nerd Font MesloLGS
+    };
+    sansSerif = {
+      name = "Noto Sans";
+      package = pkgs.noto-fonts;
+    };
+    serif = {
+      name = "Noto Serif";
+      package = pkgs.noto-fonts;
     };
 
+    sizes = { # Font sizes for different elements
+      terminal = 12;   # Font size for the terminal (Alacritty)
+      applications = 12; # Font size for general applications
+      };
+    };
     iconTheme = { # Configures the icon theme
       enable = true; # Enables the icon theme
       package = pkgs.adwaita-icon-theme; # Package providing the icon theme
