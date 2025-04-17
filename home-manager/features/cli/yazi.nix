@@ -39,8 +39,8 @@
       };
 
       status = {
-        separator_open = ""; # Using a common powerline separator
-        separator_close = "";
+        separator_open = ""; # Using a common powerline separator
+        separator_close = "";
         separator_style = { fg = "#3c3836"; bg = "#3c3836"; }; # Dark background
         progress_label = { fg = "#ebdbb2"; bold = true; }; # Bright yellow
         progress_normal = { fg = "#504945"; bg = "#3c3836"; }; # Darker grey on dark background
