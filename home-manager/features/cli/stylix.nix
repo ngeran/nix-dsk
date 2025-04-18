@@ -31,7 +31,8 @@
     };
 
     targets = { # Enables Stylix for specific applications
-      # yazi.enable = true; # Enable Stylix for yazi
+      yazi.enable = true; # Enable Stylix for yazi
+      tmux.enable = true; # Enable Stylix for Tmux
       firefox.enable = true; # Enables Stylix for Firefox
       alacritty.enable = true; # Enables Stylix for Alacritty
       neovim.enable = false; # Disables Stylix for Neovim (important!)
