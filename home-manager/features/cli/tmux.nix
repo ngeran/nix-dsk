@@ -1,54 +1,52 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   programs.tmux = {
     enable = true;
-    baseIndex = 1;
-    mouse = true;
-    escapeTime = 0;
+
+    # Rather than constraining window size to the maximum size of any client
+    # connected to the *session*, constrain window size to the maximum size of any
+    # client connected to *that window*. Much more reasonable.
+    aggressiveResize = true;
+
+    clock24 = true;
+
+    # Allows for faster key repetition
+    escapeTime = 50;
+
     keyMode = "vi";
-    terminal = "screen-256color";
-    extraConfig = ''
-      set -as terminal-features ",alacritty*:RGB"
-      bind -n M-r source-file ~/.config/tmux/tmux.conf \; display "Reloaded!"
-      bind C-p previous-window
-      bind C-n next-window
+    # Overrides the hjkl and HJKL bindings for pane navigation and resizing in VI mode
+    customPaneNavigationAndResize = true;
 
-      bind -n M-1 select-window -t 1
-      bind -n M-2 select-window -t 2
-      bind -n M-3 select-window -t 3
-      bind -n M-4 select-window -t 4
-      bind -n M-5 select-window -t 5
-      bind -n M-6 select-window -t 6
-      bind -n M-7 select-window -t 7
-      bind -n M-8 select-window -t 8
-      bind -n M-9 select-window -t 9
+    shortcut = "a";
 
-      bind -n M-Left select-pane -L
-      bind -n M-Right select-pane -R
-      bind -n M-Up select-pane -U
-      bind -n M-Down select-pane -D
-
-      bind -n M-s split-window -v
-      bind -n M-v split-window -h
-
-      bind -n M-Enter new-window
-      bind -n M-c kill-pane
-      bind -n M-q kill-window
-      bind -n M-Q kill-session
-    '';
-    plugins = with pkgs; [
-      tmuxPlugins.gruvbox
-      # {
-      #   plugin = tmuxPlugins.resurrect;
-      #   extraConfig = "set -g @resurrect-strategy-nvim 'session'";
-      # }
-      # {
-      #   plugin = tmuxPlugins.continuum;
-      #   extraConfig = ''
-      # set -g @continuum-restore 'on'
-      # set -g @continuum-save-interval '60' # minutes
-      #   '';
-      # }
+    plugins = with pkgs.tmuxPlugins; [
+      gruvbox
     ];
+
+    extraConfig = ''
+      # Enable mouse
+      set -g mouse on
+
+      # 2x C-a goes back and fourth between most recent windows
+      bind-key C-a last-window
+
+      # For neovim
+      set -g focus-events on
+
+      # Update the status line every seconds
+      set -g status-interval 1
+
+      # auto window rename
+      set -g automatic-rename
+      set -g automatic-rename-format '#{pane_current_command}'
+    '';
+  };
+
+  home.shellAliases = {
+    tm = "tmux";
+    tms = "tmux new -s";
+    tml = "tmux list-sessions";
+    tma = "tmux attach -t";
+    tmk = "tmux kill-session -t";
   };
 }
-
