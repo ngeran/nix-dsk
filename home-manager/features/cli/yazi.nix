@@ -5,7 +5,7 @@
 
 theme = {
   manager = lib.mkForce {
-    cwd = { fg = "#00ff00"; }; # Set the current directory text to bright red
+    cwd = { fg = "#83a598"; }; # Set the current directory text to bright red
     hovered = { fg = "#282828"; bg = "#83a598"; };
     preview_hovered = { underline = true; };
     find_keyword = { fg = "#b8bb26"; italic = true; };
@@ -22,7 +22,6 @@ theme = {
   };
 
   status = lib.mkForce {
-    background = "#00ff00"; # Set the status bar background to bright green
     separator_open = " ";
     separator_close = " ";
     separator_style = { fg = "#928374"; bg = "#928374"; };
