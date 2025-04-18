@@ -20,6 +20,9 @@
       # Add other top-level settings from yazi.toml here
     };
 
+    theme = {
+
+    };
     shellWrapperName = "r";
 
     keymap = {
