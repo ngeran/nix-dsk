@@ -23,7 +23,7 @@
       status = lib.mkForce {
         #separator_open = " "; # Using a common powerline separator
         #separator_close = " ";
-        separator_style = { fg = "#1d2021"; bg = "#1d2021"; }; # Dark background
+        separator_style = { fg = "#928374"; bg = "#928374"; }; # Dark background
         progress_label = { fg = "#ebdbb2"; bold = true; }; # Bright yellow
         progress_normal = { fg = "#504945"; bg = "#3c3836"; }; # Darker grey on dark background
         progress_error = { fg = "#fb4934"; bg = "#3c3836"; };  # Red on dark background
