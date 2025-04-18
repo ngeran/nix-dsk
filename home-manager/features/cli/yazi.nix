@@ -34,6 +34,86 @@
         permissions_s = { fg = "#d3869b"; }; # Pink/Purple for setuid/etc.
       };
     };
+    mode = lib.mkForce  {
+        normal_main = { fg = "#282828"; bg = "#A89984"; bold = true; };
+        normal_alt = { fg = "#282828"; bg = "#A89984"; bold = true; };
+        select_main = { fg = "#282828"; bg = "#b8bb26"; bold = true; };
+        select_alt = { fg = "#282828"; bg = "#b8bb26"; bold = true; };
+        unset_main = { fg = "#282828"; bg = "#d3869b"; bold = true; };
+        unset_alt = { fg = "#282828"; bg = "#d3869b"; bold = true; };
+      };
+
+      input = lib.mkForce  {
+        border = { fg = "#bdae93"; };
+        title = { };
+        value = { };
+        selected = { reversed = true; };
+      };
+
+      select = lib.mkForce  {
+        border = { fg = "#504945"; };
+        active = { fg = "#fe8019"; };
+        inactive = { };
+      };
+
+      tasks = lib.mkForce {
+        border = { fg = "#504945"; };
+        title = { };
+        hovered = { underline = true; };
+      };
+
+      which = lib.mkForce {
+        mask = { bg = "#3c3836"; };
+        cand = { fg = "#83a598"; };
+        rest = { fg = "#928374"; };
+        desc = { fg = "#fe8019"; };
+        separator = "  ";
+        separator_style = { fg = "#504945"; };
+      };
+
+      help = lib.mkForce {
+        on = { fg = "#fe8019"; };
+        exec = { fg = "#83a598"; };
+        desc = { fg = "#928374"; };
+        hovered = { bg = "#504945"; bold = true; };
+        footer = { fg = "#3c3836"; bg = "#a89984"; };
+      };
+
+      filetype = lib.mkForce  {
+        rules = [
+          { mime = "image/*"; fg = "#83a598"; }
+          { mime = "video/*"; fg = "#b8bb26"; }
+          { mime = "audio/*"; fg = "#b8bb26"; }
+          { mime = "application/zip"; fg = "#fe8019"; }
+          { mime = "application/gzip"; fg = "#fe8019"; }
+          { mime = "application/x-tar"; fg = "#fe8019"; }
+          { mime = "application/x-bzip"; fg = "#fe8019"; }
+          { mime = "application/x-bzip2"; fg = "#fe8019"; }
+          { mime = "application/x-7z-compressed"; fg = "#fe8019"; }
+          { mime = "application/x-rar"; fg = "#fe8019"; }
+          { name = "*"; fg = "#a89984"; }
+          { name = "*/"; fg = "#83a598"; }
+        ];
+      };
+    };
+    keymap =  {
+      manager.normal = [
+        { key = "h"; action = "navigate_back"; }
+        { key = "l"; action = "navigate_forward"; }
+        # Add your custom keybindings here
+      ];
+      # Define keymaps for other modes if needed (e.g., manager.select)
+    };
+
+    plugins = lib.mkForce  {
+      # Configure Yazi plugins here if you use any
+      # example_plugin.enable = true;
+      # example_plugin.package = pkgs.someYaziPlugin;
+      # example_plugin.settings = { ... };
+    };
+
+    initLua = null; # Path to a custom init.lua file if you have one
+
     settings = {
       manager = {
         show_hidden = true;
