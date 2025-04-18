@@ -2,7 +2,21 @@
 {
   programs.yazi = {
     enable = true;
-
+    theme = {
+      status = lib.mkForce {
+        separator_open = " "; # Using a common powerline separator
+        separator_close = " ";
+        separator_style = { fg = "#1d2021"; bg = "#1d2021"; }; # Dark background
+        progress_label = { fg = "#ebdbb2"; bold = true; }; # Bright yellow
+        progress_normal = { fg = "#504945"; bg = "#3c3836"; }; # Darker grey on dark background
+        progress_error = { fg = "#fb4934"; bg = "#3c3836"; };  # Red on dark background
+        permissions_t = { fg = "#ebdbb2"; }; # Bright yellow for file type
+        permissions_r = { fg = "#a9b665"; }; # Green for read
+        permissions_w = { fg = "#fabd2f"; }; # Yellow/Orange for write
+        permissions_x = { fg = "#8ec07c"; }; # Light green for execute
+        permissions_s = { fg = "#d3869b"; }; # Pink/Purple for setuid/etc.
+      };
+    };
     settings = {
       manager = {
         show_hidden = true;
@@ -19,23 +33,6 @@
       ];
       # Add other top-level settings from yazi.toml here
     };
-
-    theme = {
-      status = lib.mkForce {
-        separator_open = " "; # Using a common powerline separator
-        separator_close = " ";
-        separator_style = { fg = "#1d2021"; bg = "#1d2021"; }; # Dark background
-        progress_label = { fg = "#ebdbb2"; bold = true; }; # Bright yellow
-        progress_normal = { fg = "#504945"; bg = "#3c3836"; }; # Darker grey on dark background
-        progress_error = { fg = "#fb4934"; bg = "#3c3836"; };  # Red on dark background
-        permissions_t = { fg = "#ebdbb2"; }; # Bright yellow for file type
-        permissions_r = { fg = "#a9b665"; }; # Green for read
-        permissions_w = { fg = "#fabd2f"; }; # Yellow/Orange for write
-        permissions_x = { fg = "#8ec07c"; }; # Light green for execute
-        permissions_s = { fg = "#d3869b"; }; # Pink/Purple for setuid/etc.
-      };
-    };
-
     shellWrapperName = "r";
 
     keymap = {
