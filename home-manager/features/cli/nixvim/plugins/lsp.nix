@@ -7,6 +7,7 @@
       lsp.servers = {
         pylsp.enable = true;
         ruff.enable = true;
+        rust_analyzer.enable = true;
       };
     };
   };
