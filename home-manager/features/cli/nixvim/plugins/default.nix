@@ -25,7 +25,8 @@
     ./theme-gruvbox.nix # gruvbox theme
     ./indent-blankline.nix #Indent Blankline
     #./toggle-term.nix
-    #./yazi              # Yazi
+    ./yazi.nix              # Yazi
+    ./oil.nix
     #./copilot.nix       # Copilot
     ./dap.nix
     #./markview.nix
@@ -53,11 +54,6 @@
       colorizer = {
         enable = true;
         settings.user_default_options.names = false; # Disables displaying color names
-      };
-
-      oil = {
-        enable = true;
-        lazyLoad.settings.cmd = "Oil"; # Lazy loads the oil plugin when the "Oil" command is used
       };
 
       luasnip = {
