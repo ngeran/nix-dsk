@@ -33,15 +33,4 @@
       };
     };
   };
-
-  nixvim.keymaps = [
-    {
-      mode = "n";
-      key = "-";
-      action = "<cmd>Oil<CR>";
-      options = {
-        desc = "Open parent directory";
-      };
-    }
-  ];
-}
+  }
