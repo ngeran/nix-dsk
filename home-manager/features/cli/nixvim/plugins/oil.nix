@@ -1,5 +1,5 @@
 {
-  plugins.oil = {
+  nixvim.plugins.oil = {
     enable = true;
     lazyLoad.settings.before.__raw = ''
       function()
@@ -34,11 +34,11 @@
     };
   };
 
-  keymaps = [
+  nixvim.keymaps = [
     {
-      action = "<cmd>Oil<CR>";
-      key = "-";
       mode = "n";
+      key = "-";
+      action = "<cmd>Oil<CR>";
       options = {
         desc = "Open parent directory";
       };
