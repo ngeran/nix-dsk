@@ -3,6 +3,23 @@
   programs.yazi = {
     enable = true;
 
+    settings = {
+      manager = {
+        show_hidden = true;
+        sort_by = "natural";
+        # Add other manager settings as needed
+      };
+      preview = {
+        max_width = 80;
+        max_height = 20;
+        # Add other preview settings
+      };
+      opener.default = [
+        { run = "xdg-open \"$@\""; block = false; }
+      ];
+      # Add other top-level settings from yazi.toml here
+    };
+
     shellWrapperName = "r";
 
     keymap = {
