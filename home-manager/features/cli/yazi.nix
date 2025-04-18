@@ -1,7 +1,7 @@
 { config, pkgs, ... }: {
   programs.yazi = {
     enable = true;
-    package = pkgs.yazi;
+    #package = pkgs.yazi;
 
     settings = {
       manager = {
@@ -39,7 +39,7 @@
       };
 
       status = {
-        background = "#fe8819";
+        background = "#ff0000"; # Setting the background to red in Nix
         separator_open = " "; # Using a common powerline separator
         separator_close = " ";
         separator_style = { fg = "#1d2021"; bg = "#1d2021"; }; # Dark background
