@@ -5,10 +5,10 @@
   ];
   qt = {
     enable = true;
-    platformTheme.name = lib.mkForce "gtk";
+    platformTheme.name = "gtk"; # Or lib.mkForce "gtk"; if you prefer
     style = {
       package = pkgs.adwaita-qt;
-      name = "adwaita-dark";
+      name = lib.mkForce "adwaita-dark";
     };
   };
 }
