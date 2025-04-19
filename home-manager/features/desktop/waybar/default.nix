@@ -17,19 +17,14 @@
           all-outputs = false;
           format = "{icon}";
           format-icons = {
-            "1" = "";
-            "2" = "󰅨";
-            "3" = "";
-            "4" = "";
-            "5" = "󰕤";
-            "6" = "";
-            "7" = "";
-            "8" = "";
+            "1" = "";
+            "2" = "";
+            "3" = "";
             "magic" = "";
           };
 
           persistent-workspaces = {
-            "*" = 8;
+            "*" = 3;
           };
         };
 
@@ -49,7 +44,7 @@
 
          "network" = {
           interval = 3;
-          format-wifi = "   {essid}";
+          format-wifi = "󰖩   {essid}";
           format-ethernet = "󰈁 Connected";
           format-disconnected = "";
           tooltip-format = ''
