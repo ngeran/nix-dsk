@@ -6,7 +6,6 @@
     unzip
     firefox
     rofi-wayland
-    wofi
     openssh
     neofetch
     btop

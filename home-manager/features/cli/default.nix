@@ -4,8 +4,7 @@
      ./bash.nix
      ./bat.nix
      ./packages.nix
-    # ./qt.nix
-    # ./ranger.nix
+     ./qt.nix
      ./starship.nix
      ./stylix.nix
      ./tmux.nix
