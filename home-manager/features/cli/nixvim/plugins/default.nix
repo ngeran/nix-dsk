@@ -30,6 +30,7 @@
     #./copilot.nix       # Copilot
     ./dap.nix
     #./markview.nix
+    ./blink-cmp.nix
   ]; # Imports configuration files for various plugins
 
   programs.nixvim = {
