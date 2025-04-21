@@ -1,5 +1,5 @@
 {
-  plugin.blink-cmp = {
+  plugins.blink-cmp = {
     enable = true;
   };
 }
