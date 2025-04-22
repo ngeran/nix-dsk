@@ -24,13 +24,13 @@
         netmiko    # For SSH-based automation
         mypy
         openai
+        gitpython
       ]))
 
     ];
 
     # Mypy cache directory
     sessionVariables.MYPY_CACHE_DIR = "${config.xdg.cacheHome}/mypy";
-    
   };
 
   # Program configurations
