@@ -14,7 +14,7 @@
       blink-cmp.settings = {
         keymap.preset = "super-tab";
         signature.enabled = true;
-        fuzzy = false;
+        fuzzy.enabled = false;
 
         sources = {
           default = [
