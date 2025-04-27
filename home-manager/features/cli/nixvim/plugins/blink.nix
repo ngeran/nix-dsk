@@ -7,7 +7,7 @@
       blink-cmp.setupLspCapabilities = true;
 
       blink-cmp-dictionary.enable = true;
-      blink-cmp-git.enable = false;
+      blink-cmp-git.enable = true;
       blink-cmp-spell.enable = true;
       blink-emoji.enable = true;
 
@@ -46,7 +46,7 @@
             git = {
               name = "Git";
               module = "blink-cmp-git";
-              enabled = false;
+              enabled = true;
               score_offset = 100;
               should_show_items.__raw = ''
                 function()
