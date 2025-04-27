@@ -18,7 +18,6 @@
      nodejs
      gnumake
      cmake
-     code-cursor
     # WM stuff
     libsForQt5.xwaylandvideobridge
     xdg-desktop-portal-gtk
@@ -34,7 +33,5 @@
     imagemagick
     #browser
     tor-browser
-    #AI
-    vimPlugins.copilot-vim
   ];
 }
