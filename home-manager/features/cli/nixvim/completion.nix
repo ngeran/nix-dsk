@@ -27,7 +27,7 @@
       };
 
       cmp = {
-        enable = false;  # Disable nvim-cmp since blink-cmp is taking over
+        enable = true;  # Disable nvim-cmp since blink-cmp is taking over
 
         settings = {
           # The snippet.expand configuration is handled by blink-cmp internally
@@ -56,7 +56,7 @@
       };
 
       # Enable blink-cmp for completion
-      blink-cmp.enable = true;
+      blink-cmp.enable = false;
       blink-cmp.settings = {
         keymap.preset = "super-tab";  # Or any other preferred keymap
         signature.enabled = true;
