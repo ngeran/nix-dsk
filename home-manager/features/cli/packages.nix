@@ -36,7 +36,6 @@
     #NIXVIM
     fzf
     ripgrep
-    wn
     glab
     ghostscript
     mermaid-cli
