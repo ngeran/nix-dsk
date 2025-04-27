@@ -7,9 +7,8 @@
       blink-cmp.setupLspCapabilities = true;
 
       blink-cmp-dictionary.enable = true;
-      blink-cmp-git.enable = true;
+      blink-cmp-git.enable = false;
       blink-cmp-spell.enable = true;
-      blink-copilot.enable = true;
       blink-emoji.enable = true;
 
       blink-cmp.settings = {
@@ -39,13 +38,6 @@
               module = "blink-emoji";
               score_offset = 1;
             };
-            copilot = {
-              name = "copilot";
-              module = "blink-copilot";
-              async = false;
-              score_offset = 100;
-            };
-            lsp.score_offset = 4;
             spell = {
               name = "Spell";
               module = "blink-cmp-spell";
