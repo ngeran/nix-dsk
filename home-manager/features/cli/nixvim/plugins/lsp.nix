@@ -26,7 +26,6 @@
             "lsp"  # Ensures LSP sources are included for completion
             "path"
             "snippets"
-            "copilot"
             "dictionary"
             "emoji"
             "git"
