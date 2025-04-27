@@ -42,7 +42,7 @@
             copilot = {
               name = "copilot";
               module = "blink-copilot";
-              async = true;
+              async = false;
               score_offset = 100;
             };
             lsp.score_offset = 4;
@@ -54,7 +54,7 @@
             git = {
               name = "Git";
               module = "blink-cmp-git";
-              enabled = true;
+              enabled = false;
               score_offset = 100;
               should_show_items.__raw = ''
                 function()
