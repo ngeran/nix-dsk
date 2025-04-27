@@ -67,7 +67,6 @@
             "lsp"
             "path"
             "snippets"
-            "copilot"
             "dictionary"
             "emoji"
             "git"
