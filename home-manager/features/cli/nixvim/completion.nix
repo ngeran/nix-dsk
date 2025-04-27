@@ -7,8 +7,10 @@
     ];
 
     plugins = {
+      # Snippet support
       luasnip.enable = true;
 
+      # Icons and menu formatting for nvim-cmp
       lspkind = {
         enable = true;
 
@@ -26,14 +28,13 @@
         };
       };
 
+      # nvim-cmp core setup
       cmp = {
-        enable = true;  # Disable nvim-cmp since blink-cmp is taking over
+        enable = true;
 
         settings = {
-          # The snippet.expand configuration is handled by blink-cmp internally
           snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
 
-          # Mapping changes can still be set to adjust keybinding behavior for completion
           mapping = {
             "<C-d>" = "cmp.mapping.scroll_docs(-4)";
             "<C-f>" = "cmp.mapping.scroll_docs(4)";
@@ -51,26 +52,6 @@
             { name = "buffer"; }
             { name = "neorg"; }
             { name = "nixpkgs_maintainers"; }
-          ];
-        };
-      };
-
-      # Enable blink-cmp for completion
-      blink-cmp.enable = false;
-      blink-cmp.settings = {
-        keymap.preset = "super-tab";  # Or any other preferred keymap
-        signature.enabled = true;
-
-        sources = {
-          default = [
-            "buffer"
-            "lsp"
-            "path"
-            "snippets"
-            "dictionary"
-            "emoji"
-            "git"
-            "spell"
           ];
         };
       };
