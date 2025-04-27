@@ -27,6 +27,7 @@
     ./yazi.nix              # Yazi
     ./oil.nix
     ./dap.nix
+    ./blink.nix
   ]; # Imports configuration files for various plugins
 
   programs.nixvim = {
