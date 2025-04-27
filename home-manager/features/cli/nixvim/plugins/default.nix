@@ -9,7 +9,6 @@
     ./comment.nix       # Commenting plugin
     ./lsp.nix           # Language Server Protocol configuration
     ./lualine.nix       # Statusline plugin
-    ./neo-tree.nix      # File explorer plugin
     ./telescope.nix     # Fuzzy finder plugin
     ./treesitter.nix    # Incremental parsing for syntax highlighting and more
     ./markdown-preview.nix # Markdown preview plugin
