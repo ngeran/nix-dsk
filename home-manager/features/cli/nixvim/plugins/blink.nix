@@ -70,19 +70,17 @@
             };
           };
         };
-        appearance = {
-          nerd_font_variant = "mono";
-          kind_icons = {
-            Text = "󰉿"; Method = ""; Function = "󰊕"; Constructor = "󰒓";
-            Field = "󰜢"; Variable = "󰆦"; Property = "󰖷";
-            Class = "󱡠"; Interface = "󱡠"; Struct = "󱡠"; Module = "󰅩";
-            Unit = "󰪚"; Value = "󰦨"; Enum = "󰦨"; EnumMember = "󰦨";
-            Keyword = "󰻾"; Constant = "󰏿";
-            Snippet = "󱄽"; Color = "󰏘"; File = "󰈔"; Reference = "󰬲"; Folder = "󰉋";
-            Event = "󱐋"; Operator = "󰪚"; TypeParameter = "󰬛";
-            Error = "󰏭"; Warning = "󰏯"; Information = "󰏮"; Hint = "󰏭";
-            Emoji = "🤶";
-          };
+        appearance.nerd_font_variant = "mono";
+        appearance.kind_icons = {
+          Text = "󰉿"; Method = ""; Function = "󰊕"; Constructor = "󰒓";
+          Field = "󰜢"; Variable = "󰆦"; Property = "󰖷";
+          Class = "󱡠"; Interface = "󱡠"; Struct = "󱡠"; Module = "󰅩";
+          Unit = "󰪚"; Value = "󰦨"; Enum = "󰦨"; EnumMember = "󰦨";
+          Keyword = "󰻾"; Constant = "󰏿";
+          Snippet = "󱄽"; Color = "󰏘"; File = "󰈔"; Reference = "󰬲"; Folder = "󰉋";
+          Event = "󱐋"; Operator = "󰪚"; TypeParameter = "󰬛";
+          Error = "󰏭"; Warning = "󰏯"; Information = "󰏮"; Hint = "󰏭";
+          Emoji = "🤶";
         };
         completion = {
           menu = {
