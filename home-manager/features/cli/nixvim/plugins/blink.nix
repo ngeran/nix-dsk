@@ -3,18 +3,19 @@
 {
   programs.nixvim = {
     plugins = {
-      # Enable blink-cmp plugin
       blink-cmp.enable = true;
-      blink-cmp.package = pkgs.vimPlugins.blink-cmp;
+      blink-cmp.setupLspCapabilities = true;
 
-      # Enable blink-ripgrep-nvim plugin
-      blink-ripgrep-nvim.enable = true;
-      blink-ripgrep-nvim.package = pkgs.vimPlugins.blink-ripgrep-nvim;
+      blink-cmp-dictionary.enable = true;
+      blink-cmp-git.enable = true;
+      blink-cmp-spell.enable = true;
+      blink-copilot.enable = true;
+      blink-emoji.enable = true;
 
-      # Configure blink-cmp settings
       blink-cmp.settings = {
         keymap.preset = "super-tab";
         signature.enabled = true;
+
         sources = {
           default = [
             "buffer"
@@ -26,14 +27,8 @@
             "emoji"
             "git"
             "spell"
-            "ripgrep"
           ];
           providers = {
-            ripgrep = {
-              name = "Ripgrep";
-              module = "blink-ripgrep";
-              score_offset = 1;
-            };
             dictionary = {
               name = "Dict";
               module = "blink-cmp-dictionary";
@@ -70,18 +65,22 @@
             };
           };
         };
-        appearance.nerd_font_variant = "mono";
-        appearance.kind_icons = {
-          Text = "󰉿"; Method = ""; Function = "󰊕"; Constructor = "󰒓";
-          Field = "󰜢"; Variable = "󰆦"; Property = "󰖷";
-          Class = "󱡠"; Interface = "󱡠"; Struct = "󱡠"; Module = "󰅩";
-          Unit = "󰪚"; Value = "󰦨"; Enum = "󰦨"; EnumMember = "󰦨";
-          Keyword = "󰻾"; Constant = "󰏿";
-          Snippet = "󱄽"; Color = "󰏘"; File = "󰈔"; Reference = "󰬲"; Folder = "󰉋";
-          Event = "󱐋"; Operator = "󰪚"; TypeParameter = "󰬛";
-          Error = "󰏭"; Warning = "󰏯"; Information = "󰏮"; Hint = "󰏭";
-          Emoji = "🤶";
+
+        appearance = {
+          nerd_font_variant = "mono";
+          kind_icons = {
+            Text = "󰉿"; Method = ""; Function = "󰊕"; Constructor = "󰒓";
+            Field = "󰜢"; Variable = "󰆦"; Property = "󰖷";
+            Class = "󱡠"; Interface = "󱡠"; Struct = "󱡠"; Module = "󰅩";
+            Unit = "󰪚"; Value = "󰦨"; Enum = "󰦨"; EnumMember = "󰦨";
+            Keyword = "󰻾"; Constant = "󰏿";
+            Snippet = "󱄽"; Color = "󰏘"; File = "󰈔"; Reference = "󰬲"; Folder = "󰉋";
+            Event = "󱐋"; Operator = "󰪚"; TypeParameter = "󰬛";
+            Error = "󰏭"; Warning = "󰏯"; Information = "󰏮"; Hint = "󰏭";
+            Emoji = "🤶";
+          };
         };
+
         completion = {
           menu = {
             border = "none";
