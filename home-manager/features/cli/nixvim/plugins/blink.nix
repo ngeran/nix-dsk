@@ -1,18 +1,13 @@
 { pkgs, ... }:
 
 {
-  extraPlugins = with pkgs.vimPlugins; [
-    blink-ripgrep-nvim
-  ];
+  programs.nixvim = {
+    plugins = {
+      blink-cmp.enable = true;
+      blink-cmp.setupLspCapabilities = true;
 
-  plugins = {
-    blink-cmp = {
-      enable = true;
-      setupLspCapabilities = true;
-
-      settings = {
+      blink-cmp.settings = {
         keymap.preset = "super-tab";
-
         signature.enabled = true;
 
         sources = {
@@ -80,20 +75,18 @@
           };
         };
 
-        appearance = {
-          nerd_font_variant = "mono";
+        appearance.nerd_font_variant = "mono";
 
-          kind_icons = {
-            Text = "󰉿"; Method = ""; Function = "󰊕"; Constructor = "󰒓";
-            Field = "󰜢"; Variable = "󰆦"; Property = "󰖷";
-            Class = "󱡠"; Interface = "󱡠"; Struct = "󱡠"; Module = "󰅩";
-            Unit = "󰪚"; Value = "󰦨"; Enum = "󰦨"; EnumMember = "󰦨";
-            Keyword = "󰻾"; Constant = "󰏿";
-            Snippet = "󱄽"; Color = "󰏘"; File = "󰈔"; Reference = "󰬲"; Folder = "󰉋";
-            Event = "󱐋"; Operator = "󰪚"; TypeParameter = "󰬛";
-            Error = "󰏭"; Warning = "󰏯"; Information = "󰏮"; Hint = "󰏭";
-            Emoji = "🤶";
-          };
+        appearance.kind_icons = {
+          Text = "󰉿"; Method = ""; Function = "󰊕"; Constructor = "󰒓";
+          Field = "󰜢"; Variable = "󰆦"; Property = "󰖷";
+          Class = "󱡠"; Interface = "󱡠"; Struct = "󱡠"; Module = "󰅩";
+          Unit = "󰪚"; Value = "󰦨"; Enum = "󰦨"; EnumMember = "󰦨";
+          Keyword = "󰻾"; Constant = "󰏿";
+          Snippet = "󱄽"; Color = "󰏘"; File = "󰈔"; Reference = "󰬲"; Folder = "󰉋";
+          Event = "󱐋"; Operator = "󰪚"; TypeParameter = "󰬛";
+          Error = "󰏭"; Warning = "󰏯"; Information = "󰏮"; Hint = "󰏭";
+          Emoji = "🤶";
         };
 
         completion = {
@@ -124,13 +117,17 @@
           accept.auto_brackets.enabled = false;
         };
       };
+
+      blink-cmp-dictionary.enable = true;
+      blink-cmp-git.enable = true;
+      blink-cmp-spell.enable = true;
+      blink-copilot.enable = true;
+      blink-emoji.enable = true;
+      blink-ripgrep.enable = true;
     };
 
-    blink-cmp-dictionary.enable = true;
-    blink-cmp-git.enable = true;
-    blink-cmp-spell.enable = true;
-    blink-copilot.enable = true;
-    blink-emoji.enable = true;
-    blink-ripgrep.enable = true;
+    plugins.extraPlugins = with pkgs.vimPlugins; [
+      blink-ripgrep-nvim
+    ];
   };
 }
