@@ -25,6 +25,7 @@
         mypy
         openai
         gitpython
+        paramiko
       ]))
 
     ];
