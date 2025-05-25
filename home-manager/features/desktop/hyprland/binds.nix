@@ -9,7 +9,7 @@
       "$mainMod,       F, togglefloating,"
       "$mainMod,       D, exec, $menu -show drun"
       "$mainMod,       P, pseudo,"
-      "$mainMod,       J, togglesplit,"
+      "$mainMod,       T, togglesplit,"
       "$mainMod,       E, exec, bemoji -cn"
       "$mainMod,       V, exec, cliphist list | $menu --dmenu | cliphist decode | wl-copy"
       "$mainMod,       W, exec, pkill -SIGUSR2 waybar"
