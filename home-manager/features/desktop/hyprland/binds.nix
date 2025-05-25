@@ -1,41 +1,49 @@
 {
   wayland.windowManager.hyprland.settings = {
-    bind = [
-      "$mainMod,       X, exec, $terminal"
-      "$mainMod SHIFT, C, killactive,"
-      "$mainMod SHIFT, Q, exit,"
-      "$mainMod,       B, exec, $browser"
-      "$mainMod,       R, exec, $fileManager"
-      "$mainMod,       F, togglefloating,"
-      "$mainMod,       D, exec, $menu -show drun"
-      "$mainMod,       P, pseudo,"
-      "$mainMod,       T, togglesplit,"
-      "$mainMod,       E, exec, bemoji -cn"
-      "$mainMod,       V, exec, cliphist list | $menu --dmenu | cliphist decode | wl-copy"
-      "$mainMod,       W, exec, pkill -SIGUSR2 waybar"
-      "$mainMod SHIFT, W, exec, pkill -SIGUSR1 waybar"
-      "$mainMod,       L, exec, loginctl lock-session"
-      "$mainMod,       P, exec, hyprpicker -an"
-      "$mainMod,       N, exec, swaync-client -t"
-      ", Print, exec, grimblast --notify --freeze copysave area"
+   bind = [
+      # Application launchers
+      "$mainMod,        X, exec, $terminal"    # Launch terminal (e.g., kitty, alacritty)
+      "$mainMod,        B, exec, $browser"     # Launch browser (e.g., firefox, chrome)
+      "$mainMod,        R, exec, $fileManager" # Launch file manager (e.g., thunar, nautilus)
+      "$mainMod,        D, exec, $menu -show drun" # Launch application launcher (e.g., rofi, wofi, wayland-dmenu)
 
-      # Moving focus
-      "$mainMod, left, movefocus, j"
-      "$mainMod, right, movefocus, k"
-      "$mainMod, up, movefocus, u"
-      "$mainMod, down, movefocus, d"
+      # Window management
+      "$mainMod SHIFT, C, killactive,"        # Close the active window
+      "$mainMod SHIFT, Q, exit,"              # Exit Hyprland session
+      "$mainMod,        F, togglefloating,"   # Toggle floating mode for the active window
+      "$mainMod,        P, pseudo,"           # Toggle pseudo-tiling mode (makes a window appear tiled but allows free movement)
+      "$mainMod,        T, togglesplit,"      # Toggle split ratio for master/stack layout
 
-      # Moving windows
-      "$mainMod SHIFT, left,  swapwindow, j"
-      "$mainMod SHIFT, right, swapwindow, k"
-      "$mainMod SHIFT, up,    swapwindow, u"
-      "$mainMod SHIFT, down,  swapwindow, d"
+      # Utilities and specific commands
+      "$mainMod,        E, exec, bemoji -cn"  # Launch bemoji for emoji selection
+      "$mainMod,        V, exec, cliphist list | $menu --dmenu | cliphist decode | wl-copy" # Select from clipboard history
+      "$mainMod,        W, exec, pkill -SIGUSR2 waybar" # Reload Waybar (e.g., to refresh modules)
+      "$mainMod SHIFT, W, exec, pkill -SIGUSR1 waybar" # Restart Waybar
+      "$mainMod,        L, exec, loginctl lock-session" # Lock the session
+      "$mainMod,        P, exec, hyprpicker -an" # Launch Hyprpicker for color picking
+      "$mainMod,        N, exec, swaync-client -t" # Toggle SwayNC notification center
+      ", Print, exec, grimblast --notify --freeze copysave area" # Screenshot selected area and copy/save
 
-      # Resizeing windows                   X  Y
-      "$mainMod CTRL, left,  resizeactive, -60 0"
-      "$mainMod CTRL, right, resizeactive,  60 0"
-      "$mainMod CTRL, up,    resizeactive,  0 -60"
-      "$mainMod CTRL, down,  resizeactive,  0  60"
+      # Moving focus between windows
+      # These use directions (l, r, u, d)
+      "$mainMod, J, movefocus, l" # Mod + J to focus left
+      "$mainMod, K, movefocus, r" # Mod + K to focus right
+      "$mainMod, U, movefocus, u" # Mod + U to focus up
+      "$mainMod, D, movefocus, d" # Mod + D to focus down
+
+      # Moving/swapping windows
+      # These also use directions (l, r, u, d) to swap windows
+      "$mainMod SHIFT, J, swapwindow, l" # Shift + Mod + J to swap window left
+      "$mainMod SHIFT, K, swapwindow, r" # Shift + Mod + K to swap window right
+      "$mainMod SHIFT, U, swapwindow, u" # Shift + Mod + U to swap window up
+      "$mainMod SHIFT, D, swapwindow, d" # Shift + Mod + D to swap window down
+
+      # Resizing active window
+      # These use pixel values for width (X) and height (Y) changes
+      "$mainMod, H, resizeactive, -60 0" # Mod + H to decrease width by 60px
+      "$mainMod, L, resizeactive, 60 0"  # Mod + L to increase width by 60px
+      "$mainMod, U, resizeactive, 0 -60" # Mod + U to decrease height by 60px
+      "$mainMod, D, resizeactive, 0 60"  # Mod + D to increase height by 60px
 
       # Switching workspaces
       "$mainMod, 1, workspace, 1"
