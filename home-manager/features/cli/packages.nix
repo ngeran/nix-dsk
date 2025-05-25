@@ -27,6 +27,7 @@
     bat
     tailwindcss
     hugo
+    lua
     #Automation
     opentofu
     #Image
