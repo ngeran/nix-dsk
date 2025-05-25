@@ -12,7 +12,7 @@
     ./telescope.nix     # Fuzzy finder plugin
     ./treesitter.nix    # Incremental parsing for syntax highlighting and more
     ./markdown-preview.nix # Markdown preview plugin
-    ./harpoon.nix       # Easily jump between files
+    # ./harpoon.nix       # Easily jump between files
     ./neorg.nix         # Note-taking plugin
     ./startify.nix      # Start screen plugin (duplicate entry - see below)
     ./vimtex.nix        # LaTeX support
