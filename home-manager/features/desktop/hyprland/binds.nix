@@ -20,14 +20,14 @@
       ", Print, exec, grimblast --notify --freeze copysave area"
 
       # Moving focus
-      "$mainMod, left, movefocus, l"
-      "$mainMod, right, movefocus, r"
+      "$mainMod, left, movefocus, j"
+      "$mainMod, right, movefocus, k"
       "$mainMod, up, movefocus, u"
       "$mainMod, down, movefocus, d"
 
       # Moving windows
-      "$mainMod SHIFT, left,  swapwindow, l"
-      "$mainMod SHIFT, right, swapwindow, r"
+      "$mainMod SHIFT, left,  swapwindow, j"
+      "$mainMod SHIFT, right, swapwindow, k"
       "$mainMod SHIFT, up,    swapwindow, u"
       "$mainMod SHIFT, down,  swapwindow, d"
 
