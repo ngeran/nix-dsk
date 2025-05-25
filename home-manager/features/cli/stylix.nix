@@ -1,5 +1,5 @@
 { pkgs, inputs, ... }: {
-  imports = [ inputs.stylix.homeManagerModules.stylix ]; # Imports the Stylix Home Manager module
+  imports = [ inputs.stylix.homeModules.stylix ]; # Imports the Stylix Home Manager module
 
   home.packages = with pkgs; [ # Installs fonts and related tools
     dejavu_fonts          # DejaVu fonts

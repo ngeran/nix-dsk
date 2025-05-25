@@ -5,7 +5,7 @@
 	inputs = {
 	  nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
           hyprland.url = "github:hyprwm/Hyprland";
-          stylix.url = "github:danth/stylix";
+          stylix.url = "github:danth/stylix/release-25.05";
           nix-colors.url = "github:misterio77/nix-colors";
           nixos-hardware.url = "github:NixOS/nixos-hardware/master";
           #===[NIXVIM]===
