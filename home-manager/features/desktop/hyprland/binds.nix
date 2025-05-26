@@ -19,7 +19,7 @@
       "$mainMod,        V, exec, cliphist list | $menu --dmenu | cliphist decode | wl-copy" # Select from clipboard history
       "$mainMod,        W, exec, pkill -SIGUSR2 waybar" # Reload Waybar (e.g., to refresh modules)
       "$mainMod SHIFT, W, exec, pkill -SIGUSR1 waybar" # Restart Waybar
-      "$mainMod,        L, exec, loginctl lock-session" # Lock the session
+      "$mainMod,        Q, exec, loginctl lock-session" # Lock the session
       "$mainMod,        P, exec, hyprpicker -an" # Launch Hyprpicker for color picking
       "$mainMod,        N, exec, swaync-client -t" # Toggle SwayNC notification center
       ", Print, exec, grimblast --notify --freeze copysave area" # Screenshot selected area and copy/save
