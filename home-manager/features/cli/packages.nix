@@ -30,6 +30,7 @@
     lua
     #Automation
     opentofu
+    grafana
     #Image
     imagemagick
     #browser
