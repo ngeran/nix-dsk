@@ -31,6 +31,7 @@
     #Automation
     opentofu
     grafana
+    prometheus
     #Image
     imagemagick
     #browser
