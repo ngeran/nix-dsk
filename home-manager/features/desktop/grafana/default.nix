@@ -1,4 +1,7 @@
 { config, pkgs, ... }: {
+  # Ensure Grafana package is available
+  environment.systemPackages = with pkgs; [ grafana ];
+
   # grafana configuration
   services.grafana = {
     enable = true;
