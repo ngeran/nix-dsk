@@ -26,6 +26,7 @@
         openai
         gitpython
         paramiko
+        tabulate
       ]))
 
     ];
