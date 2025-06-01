@@ -23,6 +23,7 @@
         junos-eznc # For Juniper automation
         netmiko    # For SSH-based automation
         mypy
+        lxml
         openai
         gitpython
         paramiko

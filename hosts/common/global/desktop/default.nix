@@ -30,5 +30,6 @@
     starship
     yazi
     grafana
+    lsof
   ];
 }
