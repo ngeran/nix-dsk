@@ -28,6 +28,7 @@
         gitpython
         paramiko
         tabulate
+        prometheus_client
       ]))
 
     ];
