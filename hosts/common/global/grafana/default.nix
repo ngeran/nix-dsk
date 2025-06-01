@@ -22,7 +22,7 @@
     "GF_SECURITY_ADMIN_PASSWORD_FILE=/run/keys/grafana-admin-password"
   ];
 
-  # Provide the password file via environment.etc (optional location)
+  # ✅ Correct relative path to the secret file
   environment.etc."keys/grafana-admin-password".source = ./secrets/grafana-admin-password;
 
   # Optional: include grafana CLI tools

@@ -1,2 +1,3 @@
 secrets/grafana-admin-password
 hosts/asus/secrets/grafana-admin-password
+hosts/common/global/secrets/grafana-admin-password
