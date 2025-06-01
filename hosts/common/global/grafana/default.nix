@@ -23,7 +23,7 @@
   ];
 
   # Provide the password file via environment.etc (optional location)
-  environment.etc."keys/grafana-admin-password".source = /etc/nixos/secrets/grafana-admin-password;
+  environment.etc."keys/grafana-admin-password".source = ./secrets/grafana-admin-password;
 
   # Optional: include grafana CLI tools
   environment.systemPackages = with pkgs; [ grafana ];
