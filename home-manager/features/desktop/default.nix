@@ -9,6 +9,5 @@
     ./qt.nix
     ./git.nix
     ./zathura
-    ./grafana
   ];
 }
