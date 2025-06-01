@@ -1,4 +1,6 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, lib, inputs, ... }:
+
+{
   services.grafana = {
     enable = true;
 
@@ -11,20 +13,19 @@
 
       security = {
         admin_user = "admin";
-        # ⚠️ REMOVE THIS LINE to avoid storing plaintext password
-        # admin_password = "changeme";
+        # ⚠️ Do not set admin_password here
       };
     };
   };
 
-  # Securely inject the password file at runtime
+  # Inject the password at runtime via environment variable
   systemd.services.grafana.serviceConfig.Environment = [
     "GF_SECURITY_ADMIN_PASSWORD_FILE=/run/keys/grafana-admin-password"
   ];
 
-  # ✅ Correct relative path to the secret file
-  environment.etc."keys/grafana-admin-password".source = ./secrets/grafana-admin-password;
+  # ✅ Use flake-root-relative path to the secret
+  environment.etc."keys/grafana-admin-password".source =
+    inputs.self + "/secrets/grafana-admin-password";
 
-  # Optional: include grafana CLI tools
   environment.systemPackages = with pkgs; [ grafana ];
 }
