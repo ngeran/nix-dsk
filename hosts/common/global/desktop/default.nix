@@ -29,7 +29,6 @@
     bluez-tools
     starship
     yazi
-    grafana
     lsof
   ];
 }

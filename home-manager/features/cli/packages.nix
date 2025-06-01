@@ -30,7 +30,6 @@
     lua
     #Automation
     opentofu
-    grafana
     prometheus
     #Image
     imagemagick
