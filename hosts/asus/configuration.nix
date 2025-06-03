@@ -16,6 +16,7 @@
       ../common/global/desktop
       ../common/global/grafana
       ../common/global/prometheus
+      ../common/global/influxdb
       ../common/optional/bluetooth.nix
       ../common/optional/pipewire.nix
       ../common/optional/qemu.nix
