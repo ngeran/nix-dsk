@@ -8,7 +8,7 @@
   environment.systemPackages = with pkgs; [
     # ... other packages you have installed ...
     influxdb
-    influxdb-cli
+    #    influxdb-cli
   ];
 
   services.influxdb = {
