@@ -16,34 +16,44 @@
   services.telegraf = {
     enable = true;
 
-    # All Telegraf configuration (agent, inputs, outputs) goes into extraConfig
-    # as a single TOML-formatted string.
-    extraConfig = lib.mkForce ''
+    # The 'config' option is usually where you provide the structured configuration
+    # that the module then serializes into a TOML file for Telegraf.
+    # This is an attribute set.
+    config = {
       # Global agent configuration
-      [agent]
-        interval = "10s"
-        round_interval = true
-        hostname = "${config.networking.hostName}" # Identifies the Telegraf host
-        omit_hostname = false
+      agent = {
+        interval = "10s";
+        round_interval = true;
+        hostname = config.networking.hostName;
+        omit_hostname = false; # Keep this as snake_case as it maps directly to Telegraf's TOML
+      };
 
       # Juniper JTI OpenConfig Telemetry Input
-      [[inputs.jti_openconfig_telemetry]]
-        ## List of device addresses (Telegraf listens on these) to collect telemetry from
-        servers = ["0.0.0.0:50051"] # Telegraf listens for JTI on this IP/port
-        sample_frequency = "2000ms"
-        sensors = [
-          "/network-instances/network-instance/protocols/protocol/bgp/neighbors",
-          "/bgp-rib",
-        ]
-        retry_delay = "1000ms"
+      # This is a list of input plugin configurations.
+      inputs = {
+        jti_openconfig_telemetry = [{
+          servers = ["0.0.0.0:50051"];
+          sample_frequency = "2000ms"; # Keep as snake_case for TOML
+          sensors = [
+            "/network-instances/network-instance/protocols/protocol/bgp/neighbors"
+            "/bgp-rib"
+          ];
+          retry_delay = "1000ms"; # Keep as snake_case for TOML
+        }];
+      };
 
       # InfluxDB 2.x Output
-      [[outputs.influxdb_v2]]
-        urls = ["http://localhost:8086"]
-        token = "abVGyimvFALQqA6H1bvWsvI1jyBs9HA5fmtge1KeMWYhcd0x_i35CeCBX-UMNFjBq8Vp3vZgdwCgTzCtt0-PKQ=="
-        organization = "vector"
-        bucket = "vector"
-    '';
+      # This is a list of output plugin configurations.
+      outputs = {
+        influxdb_v2 = [{
+          urls = ["http://localhost:8086"];
+          token = "abVGyimvFALQqA6H1bvWsvI1jyBs9HA5fmtge1KeMWYhcd0x_i35CeCBX-UMNFjBq8Vp3vZgdwCgTzCtt0-PKQ==";
+          organization = "vector";
+          bucket = "vector";
+        }];
+      };
+    };
+    # No extraConfig here, as 'config' handles everything.
   };
 
   networking.firewall.allowedTCPPorts = [
