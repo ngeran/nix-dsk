@@ -2,6 +2,36 @@
 
 { config, pkgs, lib, ... }:
 
+let
+  grafanaDatasources = {
+    apiVersion = 1;
+    datasources = [
+      {
+        name = "InfluxDB-Juniper-Telemetry";
+        type = "influxdb";
+        access = "proxy";
+        url = "http://localhost:8086";
+        isDefault = true;
+        jsonData = {
+          defaultBucket = "vector";
+          organization = "vector";
+          version = "Flux";
+          tlsSkipVerify = false;
+        };
+        secureJsonData = {
+          token = "abVGyimvFALQqA6H1bvWsvI1jyBs9HA5fmtge1KeMWYhcd0x_i35CeCBX-UMNFjBq8Vp3vZgdwCgTzCtt0-PKQ==";
+        };
+      }
+      {
+        name = "Prometheus-Metrics";
+        type = "prometheus";
+        access = "proxy";
+        url = "http://localhost:9090";
+        isDefault = false;
+      }
+    ];
+  };
+in
 {
   # 1. Define system packages for the monitoring stack
   environment.systemPackages = with pkgs; [
@@ -76,7 +106,6 @@
   # 5. Grafana Configuration
   services.grafana = {
     enable = true;
-
     settings = {
       server = {
         http_addr = "127.0.0.1";
@@ -88,32 +117,13 @@
       };
     };
 
-    # ✅ Correct usage of provision.datasources
-    provision.datasources.settings = [
-      {
-        name = "InfluxDB-Juniper-Telemetry";
-        type = "influxdb";
-        access = "proxy";
-        url = "http://localhost:8086";
-        isDefault = true;
-        jsonData = {
-          defaultBucket = "vector";
-          organization = "vector";
-          version = "Flux";
-          tlsSkipVerify = false;
-        };
-        secureJsonData = {
-          token = "abVGyimvFALQqA6H1bvWsvI1jyBs9HA5fmtge1KeMWYhcd0x_i35CeCBX-UMNFjBq8Vp3vZgdwCgTzCtt0-PKQ==";
-        };
-      }
-      {
-        name = "Prometheus-Metrics";
-        type = "prometheus";
-        access = "proxy";
-        url = "http://localhost:9090";
-        isDefault = false;
-      }
-    ];
+    # Provision datasources using the corrected structure
+    provision = {
+      enable = true;
+      datasources = {
+        settings = grafanaDatasources;
+      };
+    };
   };
 
   # 6. Systemd environment override to load Grafana admin password from file
