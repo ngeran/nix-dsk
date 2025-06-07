@@ -1,10 +1,9 @@
-# /etc/nixos/modules/monitoring.nix
 # This module defines the monitoring stack services (InfluxDB, Telegraf, Prometheus, Grafana).
 
 { config, pkgs, lib, ... }:
 
 {
-  # 1. Define all necessary packages for the monitoring stack
+  # 1. Define system packages for the monitoring stack
   environment.systemPackages = with pkgs; [
     influxdb2
     influxdb2-cli
@@ -89,8 +88,8 @@
       };
     };
 
-    # ✅ Correct structure: list of datasources, no arbitrary nesting
-    provision.datasources = [
+    # ✅ Correct usage of provision.datasources
+    provision.datasources.settings = [
       {
         name = "InfluxDB-Juniper-Telemetry";
         type = "influxdb";
@@ -117,21 +116,21 @@
     ];
   };
 
-  # 6. Systemd service configuration for Grafana's admin password
+  # 6. Systemd environment override to load Grafana admin password from file
   systemd.services.grafana.serviceConfig.Environment = [
     "GF_SECURITY_ADMIN_PASSWORD_FILE=/run/keys/grafana-admin-password"
   ];
 
-  # 7. Firewall Configuration
+  # 7. Open firewall ports for all services
   networking.firewall.allowedTCPPorts = [
     3000  # Grafana
     8086  # InfluxDB
-    50051 # Telegraf gRPC input
+    50051 # gRPC (Telegraf)
     9090  # Prometheus
     9273  # Telegraf Prometheus exporter
   ];
 
-  # 8. Secret Management for Grafana Admin Password
+  # 8. Secrets file for Grafana admin password
   environment.etc."keys/grafana-admin-password".source =
     config.nixpkgs.inputs.self + "/secrets/grafana-admin-password";
 }
