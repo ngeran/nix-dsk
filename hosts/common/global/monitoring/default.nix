@@ -56,8 +56,30 @@ in
           servers = [ "0.0.0.0:50051" ];
           sample_frequency = "2000ms";
           sensors = [
+          # BGP Neighbors
             "/network-instances/network-instance/protocols/protocol/bgp/neighbors"
+          # BGP RIB
             "/bgp-rib"
+          # OSPF
+            "/network-instances/network-instance/protocols/protocol/ospfv2"
+            "/ospfv2/interfaces/interface"
+            "/ospfv2/areas/area"
+          # LDP
+            "/network-instances/network-instance/protocols/protocol/ldp"
+            "/mpls/signaling-protocols/ldp"
+            "/mpls/signaling-protocols/ldp/interfaces/interface"
+          # MPLS
+            "/mpls"
+            "/mpls/lsps"
+            "/mpls/lsps/constrained-path"
+            "/mpls/lsps/static-lsps"
+          # CPU Utilization
+            "/system/cpus/cpu/state"
+          # Interface Utilization & CRC Errors
+            "/interfaces/interface/state"
+            "/interfaces/interface/state/counters"
+            "/interfaces/interface/state/counters/in-crc-errors"
+            "/interfaces/interface/state/counters/out-errors"
           ];
           retry_delay = "1000ms";
         }];
