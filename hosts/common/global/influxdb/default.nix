@@ -16,40 +16,33 @@
   services.telegraf = {
     enable = true;
 
-    # Use a combined approach:
-    # 1. Use structured options for inputs and outputs (as these are well-defined NixOS options).
-    # 2. Use extraConfig for agent settings and any other sections that don't have direct NixOS options.
-    inputs = {
-      jti_openconfig_telemetry = [{
-        servers = ["0.0.0.0:50051"];
-        sampleFrequency = "2000ms";
-        sensors = [
-          "/network-instances/network-instance/protocols/protocol/bgp/neighbors"
-          "/bgp-rib"
-        ];
-        retryDelay = "1000ms";
-      }];
-    };
-
-    outputs = {
-      influxdb_v2 = [{
-        urls = ["http://localhost:8086"];
-        token = "abVGyimvFALQqA6H1bvWsvI1jyBs9HA5fmtge1KeMWYhcd0x_i35CeCBX-UMNFjBq8Vp3vZgdwCgTzCtt0-PKQ==";
-        organization = "vector";
-        bucket = "vector";
-      }];
-    };
-
-    # Re-introduce extraConfig for the 'agent' section.
-    # Use lib.mkForce to ensure this string content takes precedence
-    # for the parts of the configuration that aren't covered by structured options.
+    # All Telegraf configuration (agent, inputs, outputs) goes into extraConfig
+    # as a single TOML-formatted string.
     extraConfig = lib.mkForce ''
       # Global agent configuration
       [agent]
         interval = "10s"
         round_interval = true
-        hostname = "${config.networking.hostName}"
+        hostname = "${config.networking.hostName}" # Identifies the Telegraf host
         omit_hostname = false
+
+      # Juniper JTI OpenConfig Telemetry Input
+      [[inputs.jti_openconfig_telemetry]]
+        ## List of device addresses (Telegraf listens on these) to collect telemetry from
+        servers = ["0.0.0.0:50051"] # Telegraf listens for JTI on this IP/port
+        sample_frequency = "2000ms"
+        sensors = [
+          "/network-instances/network-instance/protocols/protocol/bgp/neighbors",
+          "/bgp-rib",
+        ]
+        retry_delay = "1000ms"
+
+      # InfluxDB 2.x Output
+      [[outputs.influxdb_v2]]
+        urls = ["http://localhost:8086"]
+        token = "abVGyimvFALQqA6H1bvWsvI1jyBs9HA5fmtge1KeMWYhcd0x_i35CeCBX-UMNFjBq8Vp3vZgdwCgTzCtt0-PKQ=="
+        organization = "vector"
+        bucket = "vector"
     '';
   };
 
@@ -57,4 +50,6 @@
     8086  # InfluxDB 2.x
     50051 # Juniper JTI gRPC (Telegraf listens here)
   ];
+
+  # ... rest of your configuration ...
 }
