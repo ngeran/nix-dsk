@@ -80,6 +80,9 @@ in
             "/interfaces/interface/state/counters"
             "/interfaces/interface/state/counters/in-crc-errors"
             "/interfaces/interface/state/counters/out-errors"
+            "/interfaces/interface/state/oper-status"
+            "/interfaces/interface/state/admin-status"
+            "/interfaces/interface/state/last-change"
           ];
           retry_delay = "1000ms";
         }];
