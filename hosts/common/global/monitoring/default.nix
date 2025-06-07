@@ -1,7 +1,7 @@
 # /etc/nixos/modules/monitoring.nix
 # This module defines the monitoring stack services (InfluxDB, Telegraf, Prometheus, Grafana).
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, ... }: # Ensure 'lib' is included for mkForce if needed, and 'config' for hostname etc.
 
 {
   # 1. Define all necessary packages for the monitoring stack
@@ -79,36 +79,38 @@
       };
     };
 
-    # >>> FIX HERE: Use 'extraDataSources' directly as a list <<<
-    # This option is specifically designed for defining datasources directly within Nix.
-    extraDataSources = [
-      {
-        name = "InfluxDB-Juniper-Telemetry";
-        type = "influxdb";
-        access = "proxy";
-        url = "http://localhost:8086";
-        isDefault = true;
-        jsonData = {
-          defaultBucket = "vector";
-          organization = "vector";
-          version = "Flux";
-          tlsSkipVerify = false;
-        };
-        secureJsonData = {
-          token = "abVGyimvFALQqA6H1bvWsvI1jyBs9HA5fmtge1KeMWYhcd0x_i35CeCBX-UMNFjBq8Vp3vZgdwCgTzCtt0-PKQ==";
-        };
-      }
-      {
-        name = "Prometheus-Metrics";
-        type = "prometheus";
-        access = "proxy";
-        url = "http://localhost:9090";
-        isDefault = false;
-      }
-    ];
-
-    # Remove any other 'provision.datasources' or similar lines.
-    # The 'provision.datasources' option is for *file-based provisioning*, not direct Nix definitions.
+    # >>> FINAL FIX HERE: Nest the datasources list under an arbitrary name AND then 'settings' <<<
+    provision.datasources = {
+      # You can choose any name here (e.g., "my-data-sources", "monitoring-datasources").
+      # This name creates a directory for the datasource provider configuration.
+      monitored-services = {
+        settings = [
+          {
+            name = "InfluxDB-Juniper-Telemetry";
+            type = "influxdb";
+            access = "proxy";
+            url = "http://localhost:8086";
+            isDefault = true;
+            jsonData = {
+              defaultBucket = "vector";
+              organization = "vector";
+              version = "Flux";
+              tlsSkipVerify = false;
+            };
+            secureJsonData = {
+              token = "abVGyimvFALQqA6H1bvWsvI1jyBs9HA5fmtge1KeMWYhcd0x_i35CeCBX-UMNFjBq8Vp3vZgdwCgTzCtt0-PKQ==";
+            };
+          }
+          {
+            name = "Prometheus-Metrics";
+            type = "prometheus";
+            access = "proxy";
+            url = "http://localhost:9090";
+            isDefault = false;
+          }
+        ];
+      };
+    };
   };
 
   # 6. Systemd service configuration for Grafana's admin password
