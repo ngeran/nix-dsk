@@ -1,7 +1,7 @@
 # /etc/nixos/modules/monitoring.nix
 # This module defines the monitoring stack services (InfluxDB, Telegraf, Prometheus, Grafana).
 
-{ config, pkgs, lib, ... }: # Ensure 'lib' is included for mkForce if needed, and 'config' for hostname etc.
+{ config, pkgs, lib, ... }:
 
 {
   # 1. Define all necessary packages for the monitoring stack
@@ -30,7 +30,7 @@
       };
       inputs = {
         jti_openconfig_telemetry = [{
-          servers = ["0.0.0.0:50051"];
+          servers = [ "0.0.0.0:50051" ];
           sample_frequency = "2000ms";
           sensors = [
             "/network-instances/network-instance/protocols/protocol/bgp/neighbors"
@@ -41,7 +41,7 @@
       };
       outputs = {
         influxdb_v2 = [{
-          urls = ["http://localhost:8086"];
+          urls = [ "http://localhost:8086" ];
           token = "abVGyimvFALQqA6H1bvWsvI1jyBs9HA5fmtge1KeMWYhcd0x_i35CeCBX-UMNFjBq8Vp3vZgdwCgTzCtt0-PKQ==";
           organization = "vector";
           bucket = "vector";
@@ -57,17 +57,27 @@
   services.prometheus = {
     enable = true;
     port = 9090;
-
     scrapeConfigs = [
-      { job_name = "prometheus"; static_configs = [ { targets = [ "localhost:9090" ]; } ]; }
-      { job_name = "telegraf"; static_configs = [ { targets = [ "localhost:9273" ]; } ]; }
-      { job_name = "influxdb"; static_configs = [ { targets = [ "localhost:8086" ]; } ]; metrics_path = "/metrics"; }
+      {
+        job_name = "prometheus";
+        static_configs = [{ targets = [ "localhost:9090" ]; }];
+      }
+      {
+        job_name = "telegraf";
+        static_configs = [{ targets = [ "localhost:9273" ]; }];
+      }
+      {
+        job_name = "influxdb";
+        static_configs = [{ targets = [ "localhost:8086" ]; }];
+        metrics_path = "/metrics";
+      }
     ];
   };
 
   # 5. Grafana Configuration
   services.grafana = {
     enable = true;
+
     settings = {
       server = {
         http_addr = "127.0.0.1";
@@ -79,38 +89,32 @@
       };
     };
 
-    # >>> FINAL FIX HERE: Nest the datasources list under an arbitrary name AND then 'settings' <<<
-    provision.datasources = {
-      # You can choose any name here (e.g., "my-data-sources", "monitoring-datasources").
-      # This name creates a directory for the datasource provider configuration.
-      monitored-services = {
-        settings = [
-          {
-            name = "InfluxDB-Juniper-Telemetry";
-            type = "influxdb";
-            access = "proxy";
-            url = "http://localhost:8086";
-            isDefault = true;
-            jsonData = {
-              defaultBucket = "vector";
-              organization = "vector";
-              version = "Flux";
-              tlsSkipVerify = false;
-            };
-            secureJsonData = {
-              token = "abVGyimvFALQqA6H1bvWsvI1jyBs9HA5fmtge1KeMWYhcd0x_i35CeCBX-UMNFjBq8Vp3vZgdwCgTzCtt0-PKQ==";
-            };
-          }
-          {
-            name = "Prometheus-Metrics";
-            type = "prometheus";
-            access = "proxy";
-            url = "http://localhost:9090";
-            isDefault = false;
-          }
-        ];
-      };
-    };
+    # ✅ Correct structure: list of datasources, no arbitrary nesting
+    provision.datasources = [
+      {
+        name = "InfluxDB-Juniper-Telemetry";
+        type = "influxdb";
+        access = "proxy";
+        url = "http://localhost:8086";
+        isDefault = true;
+        jsonData = {
+          defaultBucket = "vector";
+          organization = "vector";
+          version = "Flux";
+          tlsSkipVerify = false;
+        };
+        secureJsonData = {
+          token = "abVGyimvFALQqA6H1bvWsvI1jyBs9HA5fmtge1KeMWYhcd0x_i35CeCBX-UMNFjBq8Vp3vZgdwCgTzCtt0-PKQ==";
+        };
+      }
+      {
+        name = "Prometheus-Metrics";
+        type = "prometheus";
+        access = "proxy";
+        url = "http://localhost:9090";
+        isDefault = false;
+      }
+    ];
   };
 
   # 6. Systemd service configuration for Grafana's admin password
@@ -120,11 +124,11 @@
 
   # 7. Firewall Configuration
   networking.firewall.allowedTCPPorts = [
-    3000
-    8086
-    50051
-    9090
-    9273
+    3000  # Grafana
+    8086  # InfluxDB
+    50051 # Telegraf gRPC input
+    9090  # Prometheus
+    9273  # Telegraf Prometheus exporter
   ];
 
   # 8. Secret Management for Grafana Admin Password
