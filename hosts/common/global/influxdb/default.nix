@@ -1,5 +1,6 @@
 # /etc/nixos/configuration.nix
-{ config, pkgs, lib, ... }:
+
+{ config, pkgs, lib, ... }: # Ensure 'lib' is here
 
 {
   environment.systemPackages = with pkgs; [
@@ -14,40 +15,46 @@
 
   services.telegraf = {
     enable = true;
-    # Use lib.mkForce to ensure your configuration overrides any default.
-    extraConfig = lib.mkForce ''
-      # Global agent configuration
-      [agent]
-        interval = "10s"
-        round_interval = true
-        hostname = "${config.networking.hostName}" # Identifies the Telegraf host
-        omit_hostname = false
 
-      # Juniper JTI OpenConfig Telemetry Input
-      [[inputs.jti_openconfig_telemetry]]
-        ## List of device addresses (Telegraf listens on these) to collect telemetry from
-        servers = ["0.0.0.0:50051"] # Telegraf listens for JTI on this IP/port
-        sample_frequency = "2000ms"
+    # Use the structured options provided by the NixOS Telegraf module
+    agent = {
+      interval = "10s";
+      round_interval = true;
+      hostname = config.networking.hostName;
+      omitHostname = false; # NixOS option is usually camelCase
+    };
+
+    inputs = {
+      # Use the specific input option for jti_openconfig_telemetry
+      jti_openconfig_telemetry = [{
+        servers = ["0.0.0.0:50051"];
+        sampleFrequency = "2000ms"; # NixOS option is usually camelCase
         sensors = [
-          "/network-instances/network-instance/protocols/protocol/bgp/neighbors",
-          "/bgp-rib",
-        ]
-        retry_delay = "1000ms"
+          "/network-instances/network-instance/protocols/protocol/bgp/neighbors"
+          "/bgp-rib"
+        ];
+        retryDelay = "1000ms"; # NixOS option is usually camelCase
+      }];
+    };
 
-      # InfluxDB 2.x Output
-      [[outputs.influxdb_v2]]
-        urls = ["http://localhost:8086"]
-        token = "abVGyimvFALQqA6H1bvWsvI1jyBs9HA5fmtge1KeMWYhcd0x_i35CeCBX-UMNFjBq8Vp3vZgdwCgTzCtt0-PKQ=="
-        organization = "vector"
-        bucket = "vector"
-    '';
+    outputs = {
+      # Use the specific output option for influxdb_v2
+      influxdb_v2 = [{
+        urls = ["http://localhost:8086"];
+        token = "abVGyimvFALQqA6H1bvWsvI1jyBs9HA5fmtge1KeMWYhcd0x_i35CeCBX-UMNFjBq8Vp3vZgdwCgTzCtt0-PKQ==";
+        organization = "vector";
+        bucket = "vector";
+      }];
+    };
+
+    # Only use extraConfig for truly custom or unsupported Telegraf settings.
+    # In this case, we've covered everything with structured options,
+    # so we can probably remove extraConfig entirely or leave it empty.
+    # extraConfig = ""; # Or simply remove this line if nothing else is needed.
   };
 
-  # Open the port for Telegraf to receive JTI data
   networking.firewall.allowedTCPPorts = [
     8086  # InfluxDB 2.x
     50051 # Juniper JTI gRPC (Telegraf listens here)
   ];
-
-  # ... rest of your configuration ...
 }
