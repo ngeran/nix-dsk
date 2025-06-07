@@ -1,6 +1,6 @@
 # This module defines the monitoring stack services (InfluxDB, Telegraf, Prometheus, Grafana).
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 let
   grafanaDatasources = {
@@ -141,6 +141,7 @@ in
   ];
 
   # 8. Secrets file for Grafana admin password
+  # ✅ Use flake-root-relative path to the secret
   environment.etc."keys/grafana-admin-password".source =
-    config.nixpkgs.inputs.self + "/secrets/grafana-admin-password";
+    inputs.self + "/secrets/grafana-admin-password";
 }
