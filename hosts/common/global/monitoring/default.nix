@@ -1,5 +1,3 @@
-# This module defines the monitoring stack services (InfluxDB, Telegraf, Prometheus, Grafana).
-
 { config, pkgs, lib, inputs, ... }:
 
 let
@@ -33,7 +31,6 @@ let
   };
 in
 {
-  # 1. Define system packages for the monitoring stack
   environment.systemPackages = with pkgs; [
     influxdb2
     influxdb2-cli
@@ -42,12 +39,8 @@ in
     prometheus
   ];
 
-  # 2. InfluxDB 2.x Configuration
-  services.influxdb2 = {
-    enable = true;
-  };
+  services.influxdb2.enable = true;
 
-  # 3. Telegraf Configuration
   services.telegraf = {
     enable = true;
     extraConfig = {
@@ -57,6 +50,7 @@ in
         hostname = config.networking.hostName;
         omit_hostname = false;
       };
+
       inputs = {
         jti_openconfig_telemetry = [{
           servers = [ "0.0.0.0:50051" ];
@@ -68,6 +62,7 @@ in
           retry_delay = "1000ms";
         }];
       };
+
       outputs = {
         influxdb_v2 = [{
           urls = [ "http://localhost:8086" ];
@@ -75,14 +70,14 @@ in
           organization = "vector";
           bucket = "vector";
         }];
+
+        prometheus_client = [{
+          listen = ":9273";
+        }];
       };
-      prometheus_client = [{
-        listen = ":9273";
-      }];
     };
   };
 
-  # 4. Prometheus Configuration
   services.prometheus = {
     enable = true;
     port = 9090;
@@ -103,7 +98,6 @@ in
     ];
   };
 
-  # 5. Grafana Configuration
   services.grafana = {
     enable = true;
     settings = {
@@ -117,7 +111,6 @@ in
       };
     };
 
-    # Provision datasources using the corrected structure
     provision = {
       enable = true;
       datasources = {
@@ -126,12 +119,10 @@ in
     };
   };
 
-  # 6. Systemd environment override to load Grafana admin password from file
   systemd.services.grafana.serviceConfig.Environment = [
     "GF_SECURITY_ADMIN_PASSWORD_FILE=/run/keys/grafana-admin-password"
   ];
 
-  # 7. Open firewall ports for all services
   networking.firewall.allowedTCPPorts = [
     3000  # Grafana
     8086  # InfluxDB
@@ -140,8 +131,6 @@ in
     9273  # Telegraf Prometheus exporter
   ];
 
-  # 8. Secrets file for Grafana admin password
-  # ✅ Use flake-root-relative path to the secret
   environment.etc."keys/grafana-admin-password".source =
     inputs.self + "/secrets/grafana-admin-password";
 }
