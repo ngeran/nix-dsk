@@ -7,11 +7,11 @@
 
   environment.systemPackages = with pkgs; [
     # ... other packages you have installed ...
-    influxdb
-    #    influxdb-cli
+    influxdb2
+    influxdb2-cli
   ];
 
-  services.influxdb = {
+  services.influxdb2 = {
     enable = true;
     # You can add more configuration options here.
     # For example, to change the data directory:
