@@ -1,5 +1,4 @@
 { config, pkgs, lib, inputs, ... }:
-
 let
   grafanaDatasources = {
     apiVersion = 1;
@@ -50,7 +49,6 @@ in
         hostname = config.networking.hostName;
         omit_hostname = false;
       };
-
       inputs = {
         jti_openconfig_telemetry = [{
           servers = [ "0.0.0.0:50051" ];
@@ -86,8 +84,71 @@ in
           ];
           retry_delay = "1000ms";
         }];
-      };
 
+        # gNMI Input
+        gnmi = [{
+          addresses = [ "10.100.255.2:6030" ];
+          username = "root";
+          password = "manolis1";
+          tls_cert = "/etc/telegraf/crpd.crt";
+          tls_key = "/etc/telegraf/crpd.key";
+          insecure_skip_verify = true;
+          name_override = "crpd_gnmi";
+          subscription = [{
+            path = "/interfaces/interface/state/counters";
+            subscription_mode = "sample";
+            sample_interval = "10s";
+          }];
+        }];
+
+        # SNMP Input
+        snmp = [{
+          agents = [ "udp://192.168.1.1:161" ];  # Replace with your device IP
+          version = 2;
+          community = "public";  # Replace with your SNMP community
+          name = "snmp_device";
+
+          # Interface statistics
+          field = [
+            {
+              name = "hostname";
+              oid = "1.3.6.1.2.1.1.5.0";
+            }
+            {
+              name = "uptime";
+              oid = "1.3.6.1.2.1.1.3.0";
+            }
+          ];
+
+          # Interface table
+          table = [
+            {
+              name = "interface";
+              inherit_tags = [ "hostname" ];
+              oid = "1.3.6.1.2.1.2.2";
+
+              field = [
+                {
+                  name = "ifInOctets";
+                  oid = "1.3.6.1.2.1.2.2.1.10";
+                }
+                {
+                  name = "ifOutOctets";
+                  oid = "1.3.6.1.2.1.2.2.1.16";
+                }
+                {
+                  name = "ifInErrors";
+                  oid = "1.3.6.1.2.1.2.2.1.14";
+                }
+                {
+                  name = "ifOutErrors";
+                  oid = "1.3.6.1.2.1.2.2.1.20";
+                }
+              ];
+            }
+          ];
+        }];
+      };
       outputs = {
         influxdb_v2 = [{
           urls = [ "http://localhost:8086" ];
@@ -95,7 +156,6 @@ in
           organization = "vector";
           bucket = "vector";
         }];
-
         prometheus_client = [{
           listen = ":9273";
         }];
@@ -135,7 +195,6 @@ in
         admin_user = "admin";
       };
     };
-
     provision = {
       enable = true;
       datasources = {
@@ -154,6 +213,11 @@ in
     50051 # gRPC (Telegraf)
     9090  # Prometheus
     9273  # Telegraf Prometheus exporter
+    6030  # gNMI port
+  ];
+
+  networking.firewall.allowedUDPPorts = [
+    161   # SNMP
   ];
 
   environment.etc."keys/grafana-admin-password".source =
