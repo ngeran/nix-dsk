@@ -87,21 +87,6 @@ in
           retry_delay = "1000ms";
         }];
       };
-        # gNMI Input
-        gnmi = [{
-          addresses = [ "crpd-ip:6030" ];
-          username = "root";
-          password = "your-root-password";
-          tls_cert = "/etc/telegraf/crpd.crt";
-          tls_key = "/etc/telegraf/crpd.key";
-          insecure_skip_verify = true;
-          name_override = "crpd_gnmi";
-          subscription = [{
-            path = "/interfaces/interface/state/counters";
-            subscription_mode = "sample";
-            sample_interval = "10s";
-          }];
-        }];
 
       outputs = {
         influxdb_v2 = [{
