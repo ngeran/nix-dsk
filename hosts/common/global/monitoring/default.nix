@@ -56,33 +56,21 @@ in
           servers = [ "0.0.0.0:50051" ];
           sample_frequency = "2000ms";
           sensors = [
-          # BGP Neighbors
-            "/network-instances/network-instance/protocols/protocol/bgp/neighbors"
-          # BGP RIB
-            "/bgp-rib"
-          # OSPF
-            "/network-instances/network-instance/protocols/protocol/ospfv2"
-            "/ospfv2/interfaces/interface"
-            "/ospfv2/areas/area"
-          # LDP
-            "/network-instances/network-instance/protocols/protocol/ldp"
-            "/mpls/signaling-protocols/ldp"
-            "/mpls/signaling-protocols/ldp/interfaces/interface"
-          # MPLS
-            "/mpls"
-            "/mpls/lsps"
-            "/mpls/lsps/constrained-path"
-            "/mpls/lsps/static-lsps"
-          # CPU Utilization
-            "/system/cpus/cpu/state"
-          # Interface Utilization & CRC Errors
-            "/interfaces/interface/state"
-            "/interfaces/interface/state/counters"
-            "/interfaces/interface/state/counters/in-crc-errors"
-            "/interfaces/interface/state/counters/out-errors"
-            "/interfaces/interface/state/oper-status"
-            "/interfaces/interface/state/admin-status"
-            "/interfaces/interface/state/last-change"
+          # Interface statistics and counters
+            "/junos/system/linecard/interface/"
+            "/junos/system/linecard/interface/logical/usage/"
+            "/junos/system/linecard/interface/traffic/"
+            "/junos/system/linecard/interface/errors/"
+          # CPU utilization
+            "/junos/system/linecard/cpu/"
+          # Routing protocols (Juniper native paths)
+            "/junos/routing-engine/protocols/bgp/"
+            "/junos/routing-engine/protocols/ospf/"
+            "/junos/routing-engine/protocols/mpls/"
+            "/junos/routing-engine/protocols/ldp/"
+          # Alternative system paths that might work
+            "/junos/system/linecard/npu/"
+            "/junos/system/linecard/memory/"
           ];
           retry_delay = "1000ms";
         }];
