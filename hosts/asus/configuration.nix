@@ -36,7 +36,7 @@
   boot.initrd.kernelModules = [ "amdgpu" ];
 
   # Mount Internal Hard Drives
-  fileSystems."/mnt/DATA-2T" = {:
+  fileSystems."/mnt/DATA-2T" = {
     device = "UUID=1b079941-401f-430f-97e7-8eacd6b25e82";
     fsType = "ext4";
     options = [ "defaults" ];
