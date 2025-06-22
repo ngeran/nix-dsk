@@ -30,11 +30,9 @@
     lua
     #Automation
     opentofu
-    prometheus
     #Image
     imagemagick
     #browser
-    tor-browser
     #NIXVIM
     fzf
     ripgrep
