@@ -16,6 +16,11 @@
      bash-completion
     # Coding stuff
      nodejs
+     nodePackages.typescript
+     nodePackages.typescript-language-server
+     nodePackages.eslint
+     nodePackages.prettier
+     nodePackages.npm
      gnumake
      cmake
     # WM stuff
