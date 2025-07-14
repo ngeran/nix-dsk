@@ -29,6 +29,7 @@
         paramiko
         tabulate
         prometheus_client
+        git-filter-repo
       ]))
 
     ];
