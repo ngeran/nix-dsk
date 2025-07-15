@@ -45,5 +45,6 @@
     ghostscript
     mermaid-cli
     fd
+    git-lfs
   ];
 }
