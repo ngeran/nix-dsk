@@ -1,7 +1,7 @@
 { inputs, ... }:
 {
   imports = [
-    inputs.nixvim.homeManagerModules.nixvim
+    inputs.nixvim.homeModules.nixvim
     ./autocommands.nix
     ./completion.nix
     ./keymappings.nix
@@ -10,7 +10,7 @@
     ./todo.nix
   ];
 
-   
+
   home.shellAliases.v = "nvim";
 
   programs.nixvim = {

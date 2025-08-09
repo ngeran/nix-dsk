@@ -15,7 +15,6 @@
      tree
      bash-completion
     # Coding stuff
-     nodejs
      nodePackages.typescript
      nodePackages.typescript-language-server
      nodePackages.eslint
