@@ -1,7 +1,7 @@
 * {
   border: none;
   border-radius: 0px;
-  font-family: "MesloLGS NF";
+  font-family: "MesloLGS Nerd Font Mono";
   font-weight: bold;
   font-size: 20px;
   min-height: 0;
@@ -48,10 +48,9 @@ window#waybar {
 }
 
 #pulseaudio {
-  margin: 0 0.4em;
+  margin: 0;
   color: #83a598;
   border-bottom: 5px solid #83a598;
-  padding: 0 1em;
 }
 
 #pulseaudio.muted {
