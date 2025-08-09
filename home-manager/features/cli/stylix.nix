@@ -14,7 +14,7 @@
   # Main Stylix configuration block.
   stylix = {
     # Enable Stylix for your user. This is crucial for all other options to take effect.
-    enable = true;
+    enable = false;
 
     # Set the overall theme polarity to dark. This influences the entire color scheme.
     polarity = "dark";
@@ -34,10 +34,10 @@
     # Enable Stylix for specific applications.
     # We only enable the ones you want to be themed by Stylix.
     targets = {
-      yazi.enable = true;
-      tmux.enable = true;
-      firefox.enable = true;
-      alacritty.enable = true;
+      yazi.enable = false;
+      tmux.enable = false;
+      firefox.enable = false;
+      alacritty.enable = false;
       # The applications below are disabled, so Stylix won't manage their styling.
       neovim.enable = false;
       waybar.enable = false;
