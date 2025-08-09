@@ -48,9 +48,10 @@ window#waybar {
 }
 
 #pulseaudio {
-  margin: 0;
+  margin: 0 0.4em;
   color: #83a598;
   border-bottom: 5px solid #83a598;
+  padding: 0 1em;
 }
 
 #pulseaudio.muted {
