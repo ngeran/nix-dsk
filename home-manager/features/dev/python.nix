@@ -20,8 +20,8 @@
         types-requests
         pyyaml
         flask
-        junos-eznc # For Juniper automation
-        netmiko    # For SSH-based automation
+        junos-eznc
+        netmiko
         mypy
         lxml
         openai
