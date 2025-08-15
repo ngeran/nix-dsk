@@ -7,14 +7,14 @@ let
   jsnapy = pkgs.python3Packages.buildPythonPackage rec {
     pname = "jsnapy";
     version = "1.3.8";
-    pyproject = true;  # Add this to enable pyproject-based build
+    pyproject = true;
 
     src = pkgs.fetchPypi {
       inherit pname version;
       sha256 = "b1a4c6f048af4b048ff843541da94384320876b80b0a8b97c99fb00b8614e57d";
     };
 
-    build-system = with pkgs.python3Packages; [ setuptools ];  # Specify setuptools as the build system
+    build-system = with pkgs.python3Packages; [ setuptools ];
 
     propagatedBuildInputs = with pkgs.python3Packages; [
       junos-eznc
@@ -25,6 +25,13 @@ let
 
     # Skip tests as they may require additional setup or network access
     doCheck = false;
+
+    # Patch to prevent installation to /etc/jsnapy
+    postPatch = ''
+      substituteInPlace setup.py \
+        --replace "'data_files': [('/etc/jsnapy', ['jnpr/jsnapy/jsnapy.cfg', 'jnpr/jsnapy/logging.yml'])]," "" \
+        --replace "'/etc/jsnapy'," ""
+    '';
 
     meta = with pkgs.lib; {
       description = "Junos Snapshot Administrator in Python";
@@ -60,11 +67,15 @@ in
         tabulate
         prometheus_client
         git-filter-repo
-        jsnapy  # JSNAPy is included here
+        jsnapy
       ]))
     ];
 
-    sessionVariables.MYPY_CACHE_DIR = "${config.xdg.cacheHome}/mypy";
+    # Point JSNAPy to the project’s configuration file
+    sessionVariables = {
+      MYPY_CACHE_DIR = "${config.xdg.cacheHome}/mypy";
+      JSNAPY_CONFIG = "${config.home.homeDirectory}/vlabs/python_pipeline/tools/validation/jsnapy.cfg";
+    };
   };
 
   programs = {
