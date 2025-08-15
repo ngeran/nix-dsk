@@ -33,6 +33,13 @@ let
         --replace "'/etc/jsnapy'," ""
     '';
 
+    # Ensure configuration files are installed in the Nix store
+    postInstall = ''
+      mkdir -p $out/etc/jsnapy
+      cp jnpr/jsnapy/jsnapy.cfg $out/etc/jsnapy/
+      cp jnpr/jsnapy/logging.yml $out/etc/jsnapy/
+    '';
+
     meta = with pkgs.lib; {
       description = "Junos Snapshot Administrator in Python";
       homepage = "https://github.com/Juniper/jsnapy";
@@ -71,11 +78,7 @@ in
       ]))
     ];
 
-    # Point JSNAPy to the project’s configuration file
-    sessionVariables = {
-      MYPY_CACHE_DIR = "${config.xdg.cacheHome}/mypy";
-      JSNAPY_CONFIG = "${config.home.homeDirectory}/vlabs/python_pipeline/tools/validation/jsnapy.cfg";
-    };
+    sessionVariables.MYPY_CACHE_DIR = "${config.xdg.cacheHome}/mypy";
   };
 
   programs = {
