@@ -28,9 +28,8 @@ let
 
     # Patch to prevent installation to /etc/jsnapy
     postPatch = ''
-      substituteInPlace setup.py \
-        --replace "'data_files': [('/etc/jsnapy', ['jnpr/jsnapy/jsnapy.cfg', 'jnpr/jsnapy/logging.yml'])]," "" \
-        --replace "'/etc/jsnapy'," ""
+      sed -i '/data_files/d' setup.py
+      sed -i "/'\/etc\/jsnapy',/d" setup.py
     '';
 
     meta = with pkgs.lib; {
