@@ -3,46 +3,10 @@
   config,
   ...
 }:
-let
-  jsnapy = pkgs.python3Packages.buildPythonPackage rec {
-    pname = "jsnapy";
-    version = "1.3.8";
-    pyproject = true;
-
-    src = pkgs.fetchPypi {
-      inherit pname version;
-      sha256 = "b1a4c6f048af4b048ff843541da94384320876b80b0a8b97c99fb00b8614e57d";
-    };
-
-    build-system = with pkgs.python3Packages; [ setuptools ];
-
-    propagatedBuildInputs = with pkgs.python3Packages; [
-      junos-eznc
-      pyyaml
-      lxml
-      colorama
-    ];
-
-    # Skip tests as they may require additional setup or network access
-    doCheck = false;
-
-    # Patch to prevent installation to /etc/jsnapy
-    postPatch = ''
-      sed -i '/data_files/d' setup.py
-      sed -i "/'\/etc\/jsnapy',/d" setup.py
-    '';
-
-    meta = with pkgs.lib; {
-      description = "Junos Snapshot Administrator in Python";
-      homepage = "https://github.com/Juniper/jsnapy";
-      license = licenses.asl20;
-      maintainers = [];
-    };
-  };
-in
 {
   home = {
     packages = with pkgs; [
+      # Python packages
       (python3.withPackages (pypkgs: with pypkgs; [
         pip
         requests
@@ -66,27 +30,26 @@ in
         tabulate
         prometheus_client
         git-filter-repo
-        jsnapy
       ]))
+
     ];
 
-    # Point JSNAPy to the project's validation folder for config and logging files
-    sessionVariables = {
-      MYPY_CACHE_DIR = "${config.xdg.cacheHome}/mypy";
-      JSNAPY_HOME = "${config.home.homeDirectory}/vlabs/python_pipeline/tools/validation";
-    };
+    # Mypy cache directory
+    sessionVariables.MYPY_CACHE_DIR = "${config.xdg.cacheHome}/mypy";
   };
 
+  # Program configurations
   programs = {
     ruff = {
       enable = true;
+
       settings = {
         line-length = 100;
       };
     };
 
     nixvim = {
-      filetype.extension.gin = "gin";
+      filetype.extension.gin = "gin"; # inria
       files."after/ftplugin/python.lua" = {
         autoCmd = [
           {
@@ -103,7 +66,7 @@ in
         ];
       };
       plugins = {
-        treesitter.languageRegister.python = [ "gin" ];
+        treesitter.languageRegister.python = [ "gin" ]; # inria
         lsp.servers = {
           ruff.enable = true;
           pylsp = {
