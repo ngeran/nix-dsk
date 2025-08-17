@@ -83,7 +83,7 @@
       };
 
       animations = {
-        enabled = false;
+        enabled = true;
       };
 
       input = {
