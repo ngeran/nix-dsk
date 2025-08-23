@@ -25,8 +25,10 @@
     };
   };
 
-  # Declaratively create the data directory. This is the simplest and most reliable way.
-  home.file."n8n-data".source = pkgs.writeText "gitkeep" "";
+  # Declaratively create the data directory.
+  # The `writeTextDir` function creates a directory with a file inside it,
+  # which is the correct way to have Nix manage a directory for you.
+  home.file."n8n-data".source = pkgs.writeTextDir "n8n-data/.gitkeep" "";
 
   home.packages = with pkgs; [
     n8n
