@@ -46,5 +46,7 @@
     fd
     git-lfs
     opencode
+    #AI
+    lmstudio
   ];
 }

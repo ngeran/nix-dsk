@@ -2,8 +2,8 @@
 
 {
   home.packages = [
-    pkgs.legacyPackages.x86_64-linux.lmstudio
-  ];
+  pkgs.lmstudio
+];
 
   xdg.desktopEntries.lm-studio = {
     name = "LM Studio";
