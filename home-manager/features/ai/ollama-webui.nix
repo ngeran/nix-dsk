@@ -28,7 +28,9 @@
     };
 
     Service = {
-      ExecStart = "${pkgs.python311.withPackages (ps: with ps; [ open-webui ])}/bin/open-webui serve";
+      # This is the correct, definitive way to launch the application.
+      # It references the package directly.
+      ExecStart = "${pkgs.open-webui}/bin/open-webui serve";
       Restart = "on-failure";
       RestartSec = 10;
 
@@ -42,7 +44,8 @@
     };
   };
 
-  # Add packages to the user's environment
+  # The open-webui package must be added to home.packages for the ExecStart
+  # command to work. The Nix store path is made available by this.
   home.packages = with pkgs; [
     ollama
     open-webui
