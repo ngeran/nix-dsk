@@ -3,7 +3,7 @@
  programs.rofi = {
     enable = true;
     package = pkgs.rofi-wayland;
-    #theme = ./style.rasi;
+    theme = ./style.rasi;
 
     extraConfig = {
       modi = "drun,filebrowser";
@@ -27,4 +27,3 @@
 
 
 }
-
