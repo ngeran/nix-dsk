@@ -1,45 +1,34 @@
 { config, pkgs, ... }:
 
 {
-  # Enable the n8n service for your user
+  # Enable the n8n service for your user.
   systemd.user.services.n8n = {
-    enable = true;
-    description = "n8n workflow automation";
-    after = [ "network-online.target" ];
-    wantedBy = [ "default.target" ];
-    serviceConfig = {
-      # The Nixpkgs package for n8n.
-      # This provides a pre-configured binary that includes dependencies.
-      ExecStart = "${pkgs.n8n}/bin/n8n start --tunnel";
+    # The 'Unit' attribute holds all the options for the [Unit] section of the service file.
+    Unit = {
+      Description = "n8n workflow automation";
+      After = [ "network-online.target" ];
+    };
 
-      # The working directory for n8n.
-      # You can specify a custom path to store your workflows, credentials, etc.
-      WorkingDirectory = "%h/.n8n";
-
-      # n8n uses environment variables for configuration.
-      # This is how you set them declaratively.
+    # The 'Service' attribute holds all the options for the [Service] section.
+    Service = {
+      ExecStart = "${pkgs.n8n}/bin/n8n start";
+      WorkingDirectory = "%h/n8n-data";
       Environment = [
         "N8N_HOST=localhost"
         "N8N_PORT=5678"
-        # Example of other configurations:
-        # "N8N_DIAGNOSTICS_ENABLED=false"
-        # "N8N_USER_FOLDER=%h/my-n8n-data"
       ];
+    };
+
+    # The 'Install' attribute holds all the options for the [Install] section.
+    Install = {
+      WantedBy = [ "default.target" ];
     };
   };
 
-  # You also need to ensure that the n8n package is available to your user profile.
+  # Declaratively create the data directory. This is the simplest and most reliable way.
+  home.file."n8n-data".source = pkgs.writeText "gitkeep" "";
+
   home.packages = with pkgs; [
     n8n
   ];
-
-  # This is a good practice to ensure the n8n data directory is created.
-  # If you change N8N_USER_FOLDER, make sure this path matches.
-  home.file.".n8n" = {
-    source = ./n8n-data; # Assumes a directory named n8n-data in your config
-    # The `type = "directory"` is crucial. It tells Home Manager to create an empty directory,
-    # rather than trying to copy a nonexistent source.
-    type = "directory";
-    recursive = true;
-  };
 }
