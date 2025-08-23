@@ -14,7 +14,7 @@
 
       ./hardware-configuration.nix
       ../common/global/desktop
-      ../common/optional/bluetooth.nix
+      #      ../common/optional/bluetooth.nix
       ../common/optional/pipewire.nix
       ../common/optional/qemu.nix
       ../common/optional/docker.nix
