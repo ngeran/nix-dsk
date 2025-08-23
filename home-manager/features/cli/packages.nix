@@ -33,8 +33,6 @@
     hugo
     lua
     #Automation
-    opentofu
-    #Image
     imagemagick
     #browser
     #NIXVIM
