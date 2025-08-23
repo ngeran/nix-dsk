@@ -12,7 +12,6 @@
      obsidian
      vlc
      # CLI utils
-     tree
      bash-completion
     # Coding stuff
      nodePackages.typescript

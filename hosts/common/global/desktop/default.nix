@@ -30,6 +30,6 @@
     starship
     yazi
     lsof
-    lmstudio
+    tree
   ];
 }
