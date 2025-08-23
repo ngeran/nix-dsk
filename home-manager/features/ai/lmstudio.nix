@@ -5,7 +5,9 @@ let
     pname = "lmstudio-wrapper";
     version = "0.1";
 
-    buildInputs = [ pkgs.makeWrapper pkgs.lmstudio ];
+    src = null; # no source to unpack
+
+    buildInputs = [ pkgs.makeWrapper pkgs.lmstudio pkgs.qt5.qtbase pkgs.libGL ];
 
     installPhase = ''
       mkdir -p $out/bin
