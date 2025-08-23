@@ -1,5 +1,6 @@
 {
   imports = [
-     ./n8n.nix
+    ./n8n.nix
+    ./open-webui.nix
   ];
 }
