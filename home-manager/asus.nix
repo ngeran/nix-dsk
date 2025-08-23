@@ -8,6 +8,7 @@
 
   imports = [
        ./features/cli
+       ./features/ai
        ./features/dev
        ./features/gui
        ./features/tui
