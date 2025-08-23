@@ -28,14 +28,14 @@
     };
 
     Service = {
-      # This is the correct, definitive way to launch the application.
-      # It references the package directly.
       ExecStart = "${pkgs.open-webui}/bin/open-webui serve";
       Restart = "on-failure";
       RestartSec = 10;
 
+      # Set a writable directory for Open WebUI data
       Environment = [
         "OLLAMA_BASE_URL=http://localhost:11434"
+        "OPEN_WEBUI_DATA_DIR=%h/open-webui-data"
       ];
     };
 
