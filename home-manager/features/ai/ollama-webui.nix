@@ -28,7 +28,9 @@
     };
 
     Service = {
-      # The crucial fix: add the "serve" subcommand
+      # This line is the culprit. You need to add 'serve' at the end.
+      # WRONG: ExecStart = "${pkgs.open-webui}/bin/open-webui";
+      # CORRECT:
       ExecStart = "${pkgs.open-webui}/bin/open-webui serve";
       Restart = "on-failure";
       RestartSec = 10;
@@ -38,7 +40,6 @@
       WantedBy = [ "default.target" ];
     };
   };
-
   # Add packages to the user's environment
   home.packages = with pkgs; [
     ollama
