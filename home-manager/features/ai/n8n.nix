@@ -37,6 +37,9 @@
   # If you change N8N_USER_FOLDER, make sure this path matches.
   home.file.".n8n" = {
     source = ./n8n-data; # Assumes a directory named n8n-data in your config
+    # The `type = "directory"` is crucial. It tells Home Manager to create an empty directory,
+    # rather than trying to copy a nonexistent source.
+    type = "directory";
     recursive = true;
   };
 }
