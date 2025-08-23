@@ -1,20 +1,28 @@
 { config, pkgs, ... }:
 
-{
-  # Install the official LM Studio package
-  home.packages = with pkgs; [
-    lmstudio
-  ];
+let
+  lmstudioWrapped = pkgs.stdenv.mkDerivation rec {
+    pname = "lmstudio-wrapper";
+    version = "0.1";
 
-  # Optional: create a desktop entry
+    buildInputs = [ pkgs.makeWrapper pkgs.lmstudio ];
+
+    installPhase = ''
+      mkdir -p $out/bin
+      makeWrapper ${pkgs.lmstudio}/bin/lmstudio $out/bin/lmstudio \
+        --set LD_LIBRARY_PATH ${pkgs.qt5.qtbase}/lib:${pkgs.libGL}/lib \
+        --set QT_QPA_PLATFORM xcb \
+        --set OZONE_PLATFORM_HINT auto
+    '';
+  };
+in {
+  home.packages = [ lmstudioWrapped ];
+
   xdg.desktopEntries.lm-studio = {
     name = "LM Studio";
     exec = "lmstudio";
-    icon = "lmstudio"; # ensure icon exists or provide full path
+    icon = "lmstudio";
     type = "Application";
     comment = "Desktop App for running local LLMs";
   };
-
-  # Optional: enable Wayland support if needed
-  home.sessionVariables.NIXOS_OZONE_WL = "1";
 }
