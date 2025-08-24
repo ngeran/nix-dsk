@@ -20,18 +20,25 @@
   systemd.user.services.open-webui = {
     Unit = {
       Description = "Open WebUI for Ollama";
-      After = [ "ollama.service" ];
-      BindsTo = [ "ollama.service" ];
+      After = [ "network.target" ];
     };
     Service = {
-      # Set environment variables
       Environment = [
-        "WEBUI_DATA_DIR=${config.xdg.dataHome}/open-webui-data"
+        # Use a simpler data directory path
+        "DATA_DIR=${config.xdg.dataHome}/open-webui"
+        "STATIC_DIR=${config.xdg.dataHome}/open-webui/static"
       ];
-      # Direct command execution
+      # Create the directory structure before starting
+      ExecStartPre = [
+        "${pkgs.coreutils}/bin/mkdir -p ${config.xdg.dataHome}/open-webui"
+        "${pkgs.coreutils}/bin/mkdir -p ${config.xdg.dataHome}/open-webui/static"
+        "${pkgs.coreutils}/bin/chmod -R 755 ${config.xdg.dataHome}/open-webui"
+      ];
       ExecStart = "${pkgs.open-webui}/bin/open-webui serve";
       Restart = "on-failure";
       RestartSec = 10;
+      # Ensure the service runs with proper user permissions
+      User = "%i";
     };
     Install = {
       WantedBy = [ "default.target" ];
