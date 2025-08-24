@@ -1,24 +1,9 @@
 { config, pkgs, ... }:
 {
-  # Define the ollama systemd service
-  systemd.user.services.ollama = {
-    Unit = {
-      Description = "Ollama Large Language Model Server";
-      After = [ "network.target" ];
-    };
-    Service = {
-      ExecStart = "${pkgs.ollama}/bin/ollama serve";
-      Restart = "on-failure";
-      RestartSec = 5;
-      # Set working directory to home
-      WorkingDirectory = "%h";
-    };
-    Install = {
-      WantedBy = [ "default.target" ];
-    };
-  };
+  # Remove the conflicting ollama systemd service - let the system service handle it
+  # The system service is better for GPU access anyway
 
-  # Define the open-webui systemd service
+  # Keep only the open-webui service as a user service
   systemd.user.services.open-webui = {
     Unit = {
       Description = "Open WebUI for Ollama";
@@ -27,6 +12,8 @@
     Service = {
       Environment = [
         "DATA_DIR=${config.xdg.dataHome}/open-webui"
+        # Point to the system Ollama service
+        "OLLAMA_BASE_URL=http://localhost:11434"
       ];
       # Create the directory and set proper working directory
       ExecStartPre = [
@@ -36,7 +23,7 @@
       ExecStart = "${pkgs.open-webui}/bin/open-webui serve";
       Restart = "on-failure";
       RestartSec = 10;
-      # Set working directory to home directory (this is crucial!)
+      # Set working directory to home directory
       WorkingDirectory = "%h";
       # Ensure proper logging
       StandardOutput = "journal";
@@ -47,8 +34,9 @@
     };
   };
 
+  # Install the packages for CLI usage
   home.packages = with pkgs; [
-    ollama
-    open-webui
+    ollama      # For CLI access
+    open-webui  # Web interface
   ];
 }
