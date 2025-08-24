@@ -34,9 +34,11 @@
   # ==================== SYSTEM IMPORTS ====================
   # Description: Import common hardware profiles and modular configurations.
   # This promotes reuse and keeps the main config file clean.
+  # The nixos-hardware modules will handle basic opengl/driSupport setup.
   imports =
     [
       # Import common AMD hardware profiles from nixos-hardware flake
+      # common-gpu-amd sets hardware.opengl.enable and related options
       inputs.nixos-hardware.nixosModules.common-gpu-amd
       inputs.nixos-hardware.nixosModules.common-cpu-amd
       inputs.nixos-hardware.nixosModules.common-pc-ssd
@@ -105,26 +107,24 @@
 
   # ==================== AMD GPU & ROCm CONFIGURATION ====================
   # Description: The core configuration for enabling GPU compute.
-  # This section installs the ROCm stack, targets the specific GPU architecture (gfx1101),
-  # and sets environment variables required for tools like Ollama to detect and use the GPU.
-  hardware = {
-    opengl = {
-      enable = true; # Essential for hardware acceleration
-      driSupport = true; # Enable Direct Rendering Infrastructure
-      driSupport32Bit = true; # Support 32-bit OpenGL applications
-      extraPackages = with pkgs; [
-        rocm-opencl-icd    # OpenCL support for compute tasks
-        rocm-runtime       # Core ROCm runtime, includes HIP (Heterogeneous-Compute Interface for Portability)
-        rocm-smi           # Monitoring tool for AMD GPUs (incredibly useful for verification)
-        amdvlk             # AMD's open-source Vulkan driver for graphics
-      ];
-      extraPackages32 = with pkgs; [
-        driversi686Linux.amdvlk # 32-bit Vulkan driver for compatibility
-      ];
-    };
-    # Enable AMD's open-source Vulkan driver
-    amdgpu.amdvlk.enable = true;
+  # This section installs the ROCm stack and targets the specific GPU architecture (gfx1101).
+  # The nixos-hardware/common-gpu-amd module already sets hardware.opengl.enable and driSupport.
+  # We only need to add the extra ROCm packages and environment variables.
+  hardware.opengl = {
+    # enable, driSupport, and driSupport32Bit are set by the nixos-hardware module
+    extraPackages = with pkgs; [
+      rocm-opencl-icd    # OpenCL support for compute tasks
+      rocm-runtime       # Core ROCm runtime, includes HIP (Heterogeneous-Compute Interface for Portability)
+      rocm-smi           # Monitoring tool for AMD GPUs (incredibly useful for verification)
+      amdvlk             # AMD's open-source Vulkan driver for graphics
+    ];
+    extraPackages32 = with pkgs; [
+      driversi686Linux.amdvlk # 32-bit Vulkan driver for compatibility
+    ];
   };
+
+  # Enable AMD's open-source Vulkan driver
+  hardware.amdgpu.amdvlk.enable = true;
 
   # Environment variables critical for ROCm to find libraries and target the correct GPU
   environment.variables = {
@@ -191,8 +191,6 @@
       User = "nikos"; # Run the service as the main user for file permissions
       Group = "users";
       Restart = "on-failure"; # Automatically restart if the process fails
-      # (Optional) You can set environment variables specific to the service here too
-      # Environment = "HSA_OVERRIDE_GFX_VERSION=11.0.0";
     };
   };
 
