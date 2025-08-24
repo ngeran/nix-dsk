@@ -20,7 +20,6 @@
   };
 
   # Define the open-webui systemd service
-
   systemd.user.services.open-webui = {
     Unit = {
       Description = "Open WebUI for Ollama";
@@ -29,15 +28,8 @@
     };
 
     Service = {
-      # Use a bash wrapper script to set the environment variable
-      # and then execute the program.
-      ExecStart = ''
-        ${pkgs.bash}/bin/bash -c "
-          OPEN_WEBUI_DATA_DIR=${config.xdg.dataHome}/open-webui-data \\
-          ${pkgs.open-webui}/bin/open-webui serve
-        "
-      '';
-
+      # The corrected single-line ExecStart command
+      ExecStart = "${pkgs.bash}/bin/bash -c \"OPEN_WEBUI_DATA_DIR=${config.xdg.dataHome}/open-webui-data ${pkgs.open-webui}/bin/open-webui serve\"";
       Restart = "on-failure";
       RestartSec = 10;
     };
@@ -46,7 +38,6 @@
       WantedBy = [ "default.target" ];
     };
   };
-
   # The open-webui package must be added to home.packages for the ExecStart
   # command to work. The Nix store path is made available by this.
   home.packages = with pkgs; [
