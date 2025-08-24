@@ -10,6 +10,8 @@
       ExecStart = "${pkgs.ollama}/bin/ollama serve";
       Restart = "on-failure";
       RestartSec = 5;
+      # Set working directory to home
+      WorkingDirectory = "%h";
     };
     Install = {
       WantedBy = [ "default.target" ];
@@ -24,21 +26,21 @@
     };
     Service = {
       Environment = [
-        # Use a simpler data directory path
         "DATA_DIR=${config.xdg.dataHome}/open-webui"
-        "STATIC_DIR=${config.xdg.dataHome}/open-webui/static"
       ];
-      # Create the directory structure before starting
+      # Create the directory and set proper working directory
       ExecStartPre = [
         "${pkgs.coreutils}/bin/mkdir -p ${config.xdg.dataHome}/open-webui"
-        "${pkgs.coreutils}/bin/mkdir -p ${config.xdg.dataHome}/open-webui/static"
-        "${pkgs.coreutils}/bin/chmod -R 755 ${config.xdg.dataHome}/open-webui"
+        "${pkgs.coreutils}/bin/chmod 755 ${config.xdg.dataHome}/open-webui"
       ];
       ExecStart = "${pkgs.open-webui}/bin/open-webui serve";
       Restart = "on-failure";
       RestartSec = 10;
-      # Ensure the service runs with proper user permissions
-      User = "%i";
+      # Set working directory to home directory (this is crucial!)
+      WorkingDirectory = "%h";
+      # Ensure proper logging
+      StandardOutput = "journal";
+      StandardError = "journal";
     };
     Install = {
       WantedBy = [ "default.target" ];
