@@ -20,6 +20,7 @@
   };
 
   # Define the open-webui systemd service
+
   systemd.user.services.open-webui = {
     Unit = {
       Description = "Open WebUI for Ollama";
@@ -28,15 +29,17 @@
     };
 
     Service = {
-      ExecStart = "${pkgs.open-webui}/bin/open-webui serve";
+      # Use a bash wrapper script to set the environment variable
+      # and then execute the program.
+      ExecStart = ''
+        ${pkgs.bash}/bin/bash -c "
+          OPEN_WEBUI_DATA_DIR=${config.xdg.dataHome}/open-webui-data \\
+          ${pkgs.open-webui}/bin/open-webui serve
+        "
+      '';
+
       Restart = "on-failure";
       RestartSec = 10;
-
-      # Set a writable directory for Open WebUI data
-      Environment = [
-        "OLLAMA_BASE_URL=http://localhost:11434"
-        "OPEN_WEBUI_DATA_DIR=%h/open-webui-data"
-      ];
     };
 
     Install = {
