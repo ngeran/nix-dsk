@@ -111,7 +111,7 @@
     # enable, driSupport, and driSupport32Bit are set by the nixos-hardware module
     extraPackages = with pkgs; [
       # Install ROCm packages from the rocmPackages set
-      rocmPackages.rocm-opencl-icd    # OpenCL support for compute tasks
+      rocmPackages.clr.icd            # OpenCL support for compute tasks (correct package name)
       rocmPackages.rocm-runtime       # Core ROCm runtime, includes HIP
       rocmPackages.rocm-smi           # Monitoring tool for AMD GPUs
       amdvlk                          # AMD's open-source Vulkan driver for graphics
@@ -126,7 +126,7 @@
 
   # Environment variables critical for ROCm to find libraries and target the correct GPU
   environment.variables = {
-    ROCM_PATH = "${pkgs.rocmPackages.rocm-runtime}"; # Points to the ROCm installation directory
+    ROCM_PATH = "${pkgs.rocmPackages.clr}"; # Points to the ROCm installation directory
     # Override to target the specific GPU architecture (Navi 33/RX 7600 is 'gfx1101')
     # The version format is 'major.minor.patch'. For architecture ID 'gfx1101', use '11.0.0'.
     HSA_OVERRIDE_GFX_VERSION = "11.0.0";
@@ -190,7 +190,7 @@
 
     environment = {
       # Inherit all the ROCm environment variables
-      ROCM_PATH = "${pkgs.rocmPackages.rocm-runtime}";
+      ROCM_PATH = "${pkgs.rocmPackages.clr}";
       HSA_OVERRIDE_GFX_VERSION = "11.0.0";
       HCC_AMDGPU_TARGET = "gfx1101";
       ROCR_VISIBLE_DEVICES = "0";
