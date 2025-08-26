@@ -30,6 +30,7 @@
         tabulate
         prometheus_client
         git-filter-repo
+        cython
       ]))
 
     ];
