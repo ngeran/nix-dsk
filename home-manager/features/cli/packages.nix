@@ -22,7 +22,6 @@
      gnumake
      cmake
     # WM stuff
-    libsForQt5.xwaylandvideobridge
     xdg-desktop-portal-gtk
     xdg-desktop-portal-hyprland
     xdg-desktop-portal-wlr
