@@ -43,7 +43,6 @@
           '{text:$text,tooltip:$tooltip,alt:$alt,class:$class,percentage:$percentage}'
       '';
     };
-
   swayCfg = config.wayland.windowManager.sway;
   hyprlandCfg = config.wayland.windowManager.hyprland;
 in {
@@ -59,233 +58,150 @@ in {
     systemd.enable = true;
     settings = {
       primary = {
-        exclusive = false;
-        passthrough = false;
-        height = 40;
-        margin = "6";
+        reload_style_on_change = true;
+        layer = "top";
         position = "top";
-        modules-left =
-          ["custom/menu"]
-          ++ (lib.optionals swayCfg.enable [
-            "sway/workspaces"
-            "sway/mode"
-          ])
-          ++ (lib.optionals hyprlandCfg.enable [
-            "hyprland/workspaces"
-            "hyprland/submap"
-          ])
-          ++ [
-            "custom/currentplayer"
-            "custom/player"
-          ];
-
-        modules-center = [
-          "cpu"
-          "custom/gpu"
-          "memory"
-          "clock"
-          "custom/unread-mail"
+        spacing = 0;
+        height = 26;
+        modules-left = [
+          "custom/omarchy"
+          "hyprland/workspaces"
         ];
-
+        modules-center = [
+          "clock"
+          "custom/update"
+        ];
         modules-right = [
-          "tray"
-          "custom/rfkill"
+          "group/tray-expander"
+          "bluetooth"
           "network"
           "pulseaudio"
+          "cpu"
           "battery"
-          "custom/hostname"
         ];
 
-        clock = {
-          interval = 1;
-          format = "{:%d/%m %H:%M:%S}";
-          format-alt = "{:%Y-%m-%d %H:%M:%S %z}";
-          on-click-left = "mode";
-          tooltip-format = ''
-            <big>{:%Y %B}</big>
-            <tt><small>{calendar}</small></tt>'';
+        "hyprland/workspaces" = {
+          on-click = "activate";
+          format = "{icon}";
+          format-icons = {
+            default = "";
+            "1" = "1";
+            "2" = "2";
+            "3" = "3";
+            "4" = "4";
+            "5" = "5";
+            "6" = "6";
+            "7" = "7";
+            "8" = "8";
+            "9" = "9";
+            active = "󱓻";
+          };
+          persistent-workspaces = {
+            "1" = [];
+            "2" = [];
+            "3" = [];
+            "4" = [];
+            "5" = [];
+          };
+        };
+
+        "custom/omarchy" = {
+          format = "<span font='omarchy'>\ue900</span>";
+          on-click = "omarchy-menu";
+          tooltip-format = "Omarchy Menu\n\nSuper + Alt + Space";
+        };
+
+        "custom/update" = {
+          format = "";
+          exec = "omarchy-update-available";
+          on-click = "alacritty --class Omarchy --title Omarchy -e omarchy-update";
+          tooltip-format = "Omarchy update available";
+          interval = 3600;
         };
 
         cpu = {
-          format = "  {usage}%";
-        };
-        "custom/gpu" = {
           interval = 5;
-          exec = mkScript {script = "cat /sys/class/drm/card*/device/gpu_busy_percent | head -1";};
-          format = "󰒋  {}%";
+          format = "󰍛";
+          on-click = "alacritty -e btop";
         };
-        memory = {
-          format = "  {}%";
+
+        clock = {
+          format = "{:%A %H:%M}";
+          format-alt = "{:%d %B W%V %Y}";
+          tooltip = false;
+          on-click-right = "omarchy-cmd-tzupdate";
+        };
+
+        network = {
+          format-icons = ["󰤯" "󰤟" "󰤢" "󰤥" "󰤨"];
+          format = "{icon}";
+          format-wifi = "{icon}";
+          format-ethernet = "󰀂";
+          format-disconnected = "󰖪";
+          tooltip-format-wifi = "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}";
+          tooltip-format-ethernet = "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}";
+          tooltip-format-disconnected = "Disconnected";
+          interval = 3;
+          nospacing = 1;
+          on-click = "alacritty --class=Impala -e impala";
+        };
+
+        battery = {
+          format = "{capacity}% {icon}";
+          format-discharging = "{icon}";
+          format-charging = "{icon}";
+          format-plugged = "";
+          format-icons = {
+            charging = ["󰢜" "󰂆" "󰂇" "󰂈" "󰢝" "󰂉" "󰢞" "󰂊" "󰂋" "󰂅"];
+            default = ["󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
+          };
+          format-full = "󰂅";
+          tooltip-format-discharging = "{power:>1.0f}W↓ {capacity}%";
+          tooltip-format-charging = "{power:>1.0f}W↑ {capacity}%";
           interval = 5;
+          states = {
+            warning = 20;
+            critical = 10;
+          };
+        };
+
+        bluetooth = {
+          format = "";
+          format-disabled = "󰂲";
+          format-connected = "";
+          tooltip-format = "Devices connected: {num_connections}";
+          on-click = "blueberry";
         };
 
         pulseaudio = {
-          format-source = "󰍬 {volume}%";
-          format-source-muted = "󰍭 0%";
-          format = "{icon} {volume}% {format_source}";
-          format-muted = "󰸈 0% {format_source}";
-          format-icons = {
-            default = [
-              "󰕿"
-              "󰖀"
-              "󰕾"
-            ];
-          };
-          on-click = lib.getExe pkgs.pavucontrol;
-        };
-        idle_inhibitor = {
           format = "{icon}";
+          on-click = "alacritty --class=Wiremix -e wiremix";
+          on-click-right = "pamixer -t";
+          tooltip-format = "Playing at {volume}%";
+          scroll-step = 5;
+          format-muted = "󰝟";
           format-icons = {
-            activated = "󰒳";
-            deactivated = "󰒲";
+            default = ["" "" ""];
           };
         };
-        battery = {
-          bat = "BAT0";
-          interval = 10;
-          format-icons = [
-            "󰁺"
-            "󰁻"
-            "󰁼"
-            "󰁽"
-            "󰁾"
-            "󰁿"
-            "󰂀"
-            "󰂁"
-            "󰂂"
-            "󰁹"
-          ];
-          format = "{icon} {capacity}%";
-          format-charging = "󰂄 {capacity}%";
-          onclick = "";
+
+        "group/tray-expander" = {
+          orientation = "inherit";
+          drawer = {
+            transition-duration = 600;
+            children-class = "tray-group-item";
+          };
+          modules = ["custom/expand-icon" "tray"];
         };
-        "sway/window" = {
-          max-length = 20;
+
+        "custom/expand-icon" = {
+          format = " ";
+          tooltip = false;
         };
-        network = {
-          interval = 3;
-          format-wifi = "   {essid}";
-          format-ethernet = "󰈁 Connected";
-          format-disconnected = "";
-          tooltip-format = ''
-            {ifname}
-            {ipaddr}/{cidr}
-            Up: {bandwidthUpBits}
-            Down: {bandwidthDownBits}'';
-        };
-        "custom/menu" = {
-          interval = 1;
-          return-type = "json";
-          exec = mkScriptJson {
-            deps = lib.optional hyprlandCfg.enable hyprlandCfg.package;
-            text = "";
-            tooltip = ''$(grep PRETTY_NAME /etc/os-release | cut -d '"' -f2)'';
-            class = let
-              isFullScreen =
-                if hyprlandCfg.enable
-                then "hyprctl activewindow -j | jq -e '.fullscreen' &>/dev/null"
-                else "false";
-            in "$(if ${isFullScreen}; then echo fullscreen; fi)";
-          };
-        };
-        "custom/hostname" = {
-          exec = mkScript {script = ''
-            echo "$USER@$HOSTNAME"
-          '';};
-          on-click = mkScript {script = ''
-            systemctl --user restart waybar
-          '';};
-        };
-        "custom/unread-mail" = {
-          interval = 5;
-          return-type = "json";
-          exec = mkScriptJson {
-            deps = [pkgs.findutils pkgs.procps];
-            script = ''
-              count=$(find ~/Mail/*/Inbox/new -type f | wc -l)
-              if pgrep mbsync &>/dev/null; then
-                status="syncing"
-              else
-                if [ "$count" == "0" ]; then
-                  status="read"
-                else
-                  status="unread"
-                fi
-              fi
-            '';
-            text = "$count";
-            alt = "$status";
-          };
-          format = "{icon}  ({})";
-          format-icons = {
-            "read" = "󰇯";
-            "unread" = "󰇮";
-            "syncing" = "󰁪";
-          };
-        };
-        "custom/currentplayer" = {
-          interval = 2;
-          return-type = "json";
-          exec = mkScriptJson {
-            deps = [pkgs.playerctl];
-            script = ''
-              all_players=$(playerctl -l 2>/dev/null)
-              selected_player="$(playerctl status -f "{{playerName}}" 2>/dev/null || true)"
-              clean_player="$(echo "$selected_player" | cut -d '.' -f1)"
-            '';
-            alt = "$clean_player";
-            tooltip = "$all_players";
-          };
-          format = "{icon}{}";
-          format-icons = {
-            "" = " ";
-            "Celluloid" = "󰎁 ";
-            "spotify" = "󰓇 ";
-            "ncspot" = "󰓇 ";
-            "qutebrowser" = "󰖟 ";
-            "firefox" = " ";
-            "discord" = " 󰙯 ";
-            "sublimemusic" = " ";
-            "kdeconnect" = "󰄡 ";
-            "chromium" = " ";
-          };
-        };
-        "custom/player" = {
-          exec-if = mkScript {
-            deps = [pkgs.playerctl];
-            script = ''
-              selected_player="$(playerctl status -f "{{playerName}}" 2>/dev/null || true)"
-              playerctl status -p "$selected_player" 2>/dev/null
-            '';
-          };
-          exec = mkScript {
-            deps = [pkgs.playerctl];
-            script = ''
-              selected_player="$(playerctl status -f "{{playerName}}" 2>/dev/null || true)"
-              playerctl metadata -p "$selected_player" \
-                --format '{"text": "{{artist}} - {{title}}", "alt": "{{status}}", "tooltip": "{{artist}} - {{title}} ({{album}})"}' 2>/dev/null
-            '';
-          };
-          return-type = "json";
-          interval = 2;
-          max-length = 30;
-          format = "{icon} {}";
-          format-icons = {
-            "Playing" = "󰐊";
-            "Paused" = "󰏤 ";
-            "Stopped" = "󰓛";
-          };
-          on-click = mkScript {
-            deps = [pkgs.playerctl];
-            script = "playerctl play-pause";
-          };
-        };
-        "custom/rfkill" = {
-          interval = 1;
-          exec-if = mkScript {
-            deps = [pkgs.util-linux];
-            script = "rfkill | grep '\<blocked\>'";
-          };
+
+        tray = {
+          icon-size = 12;
+          spacing = 12;
         };
       };
     };
@@ -309,7 +225,6 @@ in {
           padding: 0;
           margin: 0 0.4em;
         }
-
         window#waybar {
           padding: 0;
           border-radius: 0.5em;
@@ -322,7 +237,6 @@ in {
         .modules-right {
           margin-right: -0.65em;
         }
-
         #workspaces button {
           background-color: ${colors.surface};
           color: ${colors.on_surface};
@@ -340,13 +254,11 @@ in {
           background-color: ${colors.primary};
           color: ${colors.on_primary};
         }
-
         #clock {
           padding-right: 1em;
           padding-left: 1em;
           border-radius: 0.5em;
         }
-
         #custom-menu {
           background-color: ${colors.surface_container};
           color: ${colors.primary};
@@ -376,6 +288,27 @@ in {
         #custom-gpu, #cpu, #memory {
           margin-left: 0.05em;
           margin-right: 0.55em;
+        }
+        /* Additional styles for the new modules */
+        #custom-omarchy {
+          background-color: ${colors.surface_container};
+          color: ${colors.primary};
+          padding-right: 1em;
+          padding-left: 1em;
+          border-radius: 0.5em;
+        }
+        #custom-update {
+          color: ${colors.primary};
+          padding-left: 0.5em;
+          padding-right: 0.5em;
+        }
+        #group-tray-expander {
+          background-color: ${colors.surface_container};
+          border-radius: 0.5em;
+        }
+        #custom-expand-icon {
+          color: ${colors.on_surface_variant};
+          padding: 0 0.5em;
         }
       '';
   };
